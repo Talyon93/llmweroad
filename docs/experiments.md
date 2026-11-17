@@ -32,3 +32,22 @@ Misses with headings:
 
 Idea for M4/M6: the classify node (runs first anyway) also outputs a short English search query.
 Measure whether retrieving with it fixes these misses without hurting the rest.
+
+## 2026-11-17 · LLM layer and Langfuse
+
+Live smoke test (`uv run pytest -m live`):
+
+| call | model | latency | tokens in/out | cost |
+|---|---|---|---|---|
+| structured classification, effort low, thinking off | claude-haiku-5-5 | 1.5 s | 308 / 16 | $0.000039 |
+| one-word answer, effort low | claude-opus-5-5 | 0.9 s | 21 / 5 | $0.000184 |
+
+Bug found by checking the trace instead of trusting it: every LLM call appeared **twice** in
+Langfuse, as my own `detect` generation and as `anthropic.messages.create`. The Anthropic SDK 2.x
+emits its own OpenTelemetry GenAI span and Langfuse 5 ingests known LLM instrumentation scopes by
+default. Both carried cost, so trace totals were 2x the real spend.
+
+- Fix: `Anthropic(open_telemetry=False)`; keep my own generation, which is named per graph node
+  (needed for cost per node) and priced from my own table. Regression test added.
+- Side check: Langfuse's built-in price for `claude-haiku-5-5` matched my table to the cent
+  fraction ($0.0000388), an independent check of the cost maths.
