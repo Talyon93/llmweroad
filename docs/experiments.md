@@ -82,3 +82,51 @@ Problems found by reading the replies (inputs for the eval set and M6):
   business. Left unfixed on purpose, to measure the prompt change in M6.
 - **Cost spread.** A booking answer on Opus with 3 decide turns costs ~150x a Haiku FAQ answer.
   M6 candidate: Haiku for the tool loop on simple bookings.
+
+## 2026-11-17 · M5: eval set, first baseline, judge calibration
+
+Dataset: 82 synthetic cases (62 dev / 20 test held out until the end of M6), IT 26 / EN 34 /
+DE 21 / FR 1, all 13 intents, 18 must-escalate, 3 must-clarify. All 11 expected prices were
+computed by hand and cross-checked against the tools before the first run (all matched).
+
+### The first judge was wrong, not the agent
+
+First dev run (routing on): **71.0%** answer correctness, judge faithfulness 1.98/3. Reading the
+failures: the judge flagged "Giulia confirms after the 30% deposit" as an invented policy in ~10
+replies. That fact is in the assistant's system prompt (and in about.md), but the judge only saw
+the retrieved chunks. It was also inconsistent: the same sentence passed in other cases.
+
+Calibration against my own labels (28 replies; 19 labelled blind, 9 failures labelled after
+reading the first judge's reasoning, so less independent):
+
+| judge version | agreement with human labels | dev answer correctness |
+|---|---|---|
+| v1: SOURCES = retrieved chunks + tool results | 18/28 (64%) | 71.0% |
+| v2: + operator instructions count as sources | 27/28 (96%) | 90.3% |
+| v2 + pass requires tone >= 2 | 27/28 (96%) | **88.7%** |
+
+- The remaining disagreement (services-en-01, "roughly a one-hour drive" from the airport) is
+  the judge being stricter than me; defensible.
+- Tone rule: restaurant-it-02 had correct facts but **leaked English reasoning into the Italian
+  reply** ("Rispondo in italiano: ..."). The judge scored tone 1, but the pass rule ignored tone.
+  A reply you cannot send is not correct.
+- `scripts/rejudge.py` re-runs only the judge on stored responses ($0.98 instead of $1.50 for a
+  full run), and `--rescore` recomputes scores with no API calls.
+
+Lesson: an LLM judge is a model under test too. Without the hand labels I would have "fixed"
+the agent's prompt to stop mentioning Giulia, i.e. optimised against a broken metric.
+
+### Baseline (routing on, headings chunking, judge v2): 88.7% on dev
+
+Remaining 7 failures, all real:
+- Over-escalation by the classifier's risk flags (precision 85.7%): "discount for a week"
+  flagged as discount_request (it is a published offer); "children alone in the pool" flagged
+  as legal_or_safety.
+- Unsupported claims on the Haiku path: assumes the guest is in an apartment (restaurant-en-01);
+  implies yogurt and cakes are vegan (restaurant-de-02); "one-hour drive" (services-en-01).
+- Leaked reasoning with Haiku + thinking disabled (restaurant-it-02): the failure mode the
+  Anthropic docs describe for disabled thinking.
+- booking-en-03: Opus asked for guest details instead of calling the tools; Granaio is booked
+  and needs 7 nights in high season.
+
+Cost of one dev run: agent $0.53 (62 queries, $0.0085/query), judge $0.88-0.98.

@@ -30,5 +30,14 @@ Ask the assistant (needs `.env`):
 uv run python scripts/ask.py --today 2026-11-17 "Accettate cani?"
 ```
 
+Evals (needs `.env`):
+
+```bash
+uv run python scripts/run_evals.py --label routing            # dev split, routing on
+uv run python scripts/run_evals.py --label strong-only --no-routing
+uv run python scripts/compare_runs.py --latest 2
+uv run python scripts/rejudge.py evals/results/<run>.json --label <new>   # judge only
+```
+
 Copy `.env.example` to `.env` and fill in the keys you need. `.env` is git-ignored.
 Tests marked `live` call real APIs and are skipped by default (`uv run pytest -m live` to run them).

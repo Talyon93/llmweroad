@@ -73,6 +73,12 @@ class Tracer:
             return None
         return self._client.get_trace_url(trace_id=trace_id)
 
+    def score(self, trace_id: str | None, name: str, value: float, comment: str = "") -> None:
+        if self.enabled and trace_id:
+            self._client.create_score(
+                trace_id=trace_id, name=name, value=value, comment=comment or None
+            )
+
     def flush(self) -> None:
         if self.enabled:
             self._client.flush()

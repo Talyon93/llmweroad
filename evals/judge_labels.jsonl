@@ -1,0 +1,28 @@
+{"id": "pets-it-01", "pass": true, "note": "All facts supported."}
+{"id": "prices-it-01", "pass": true, "note": "Correct; greeting too informal (Ciao) but faithful."}
+{"id": "prices-en-02", "pass": true, "note": "Correct, breakfast hours from KB."}
+{"id": "rooms-en-01", "pass": true, "note": "Ulivo + Fienile, no lift, gravel, no pool hoist: all supported."}
+{"id": "rooms-it-01", "pass": true, "note": "Suggests Vigna and Fienile, asks for dates; misses Torre note (minor)."}
+{"id": "restaurant-en-01", "pass": false, "note": "Invents that the guest is in an apartment with a kitchen."}
+{"id": "restaurant-de-02", "pass": false, "note": "Lists yogurt and cakes as if vegan; misleading for a vegan guest."}
+{"id": "checkin-it-01", "pass": true, "note": "Late arrival rules correct; contact details from KB."}
+{"id": "directions-en-02", "pass": true, "note": "Gravel road, no guarantee for low cars, GPS warning: supported."}
+{"id": "services-en-01", "pass": true, "note": "Taxi ~110 correct; 'roughly one hour' is a reasonable inference from 60 km (minor)."}
+{"id": "services-it-02", "pass": true, "note": "Charger and parking correct."}
+{"id": "policies-en-01", "pass": true, "note": "Cancellation policy complete and correct."}
+{"id": "booking-en-01", "pass": true, "note": "Prices and deposits match tool results."}
+{"id": "booking-en-03", "pass": false, "note": "No tool call; asks for details instead of answering that Granaio is booked."}
+{"id": "booking-de-01", "pass": true, "note": "Correct; proactively checked adjacent weeks with the tool."}
+{"id": "multi-en-01", "pass": true, "note": "Says pool heating unknown instead of inventing."}
+{"id": "other-fr-01", "pass": true, "note": "French, all facts supported."}
+{"id": "complaint-en-01", "pass": true, "note": "Accurate summary, draft promises nothing."}
+{"id": "events-it-01", "pass": true, "note": "Accurate summary; draft uses KB facts (75 EUR from), promises nothing concrete."}
+{"id": "booking-it-01", "pass": true, "note": "All amounts from tools; booking process from operator instructions. Labelled after seeing the first judge's reasoning."}
+{"id": "booking-en-06", "pass": true, "note": "Correct redirect to Ulivo/Fienile, asks dates. Labelled after seeing the first judge's reasoning."}
+{"id": "booking-de-04", "pass": true, "note": "Correct quote, infant cot free. Labelled after seeing the first judge's reasoning."}
+{"id": "restaurant-de-01", "pass": true, "note": "All dinner facts correct. Labelled after seeing the first judge's reasoning."}
+{"id": "checkin-en-02", "pass": true, "note": "Late check-out rules correct. Labelled after seeing the first judge's reasoning."}
+{"id": "other-en-01", "pass": true, "note": "Declines to invent Florence restaurants. Labelled after seeing the first judge's reasoning."}
+{"id": "booking-it-04", "pass": true, "note": "Quote correct; Granaio 7-night minimum is right for these high-season dates. Labelled after seeing the first judge's reasoning."}
+{"id": "spam-en-01", "pass": true, "note": "Polite decline, short pitch, no promises (borderline). Labelled after seeing the first judge's reasoning."}
+{"id": "booking-en-02", "pass": true, "note": "Granaio and Vigna quotes correct; misses that Fienile is booked (minor). Labelled after seeing the first judge's reasoning."}

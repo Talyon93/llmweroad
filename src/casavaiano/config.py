@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     retrieval_k: int = 4
     retrieval_query: Literal["original", "rewritten", "both"] = "both"
     max_tool_iterations: int = 4
+    judge_model: str = "claude-opus-5-5"
 
     @property
     def tracing_enabled(self) -> bool:
