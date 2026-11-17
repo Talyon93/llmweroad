@@ -26,6 +26,8 @@ class Settings(BaseSettings):
     strong_model: str = "claude-opus-5-5"
     routing_enabled: bool = True
     chunking_strategy: Literal["headings", "fixed"] = "headings"
+    embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    retrieval_k: int = 4
 
     @property
     def tracing_enabled(self) -> bool:

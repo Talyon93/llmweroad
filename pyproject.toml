@@ -5,6 +5,8 @@ description = "Guest-inquiry assistant for a Tuscan agriturismo: LangGraph agent
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "chromadb>=1.5.9",
+    "fastembed>=0.9.1",
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
     "pyyaml>=6.0.3",
@@ -32,5 +34,9 @@ select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-markers = ["live: calls real external APIs (deselected by default)"]
+markers = [
+    "live: calls real external APIs (deselected by default)",
+    "embedding: uses the local embedding model (downloads it on first run)",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
 addopts = "-m 'not live'"

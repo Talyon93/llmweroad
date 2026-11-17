@@ -1,0 +1,30 @@
+{"query": "Can I bring my dog?", "lang": "en", "relevant": [["policies", "Pets"]]}
+{"query": "What time is check-in?", "lang": "en", "relevant": [["policies", "Check-in and check-out"]]}
+{"query": "How much is the Torre suite per night in August?", "lang": "en", "relevant": [["prices", "Nightly prices"]]}
+{"query": "Is the restaurant open on Tuesday evening?", "lang": "en", "relevant": [["restaurant", "Dinner"], ["restaurant", "On non-dinner days"]]}
+{"query": "How do I get to you from Pisa airport?", "lang": "en", "relevant": [["directions", "By car"], ["directions", "By plane"], ["services", "Transfers"]]}
+{"query": "What is your cancellation policy?", "lang": "en", "relevant": [["policies", "Cancellation"]]}
+{"query": "Do you host wedding receptions?", "lang": "en", "relevant": [["events", "*"], ["faq", "Can we get married at CasaVaiano?"]]}
+{"query": "My mother uses a wheelchair, is there a lift?", "lang": "en", "relevant": [["faq", "Is CasaVaiano suitable for guests with reduced mobility?"], ["rooms", "Ulivo (double room)"]]}
+{"query": "When is the swimming pool open?", "lang": "en", "relevant": [["services", "Swimming pool"]]}
+{"query": "Can you pick us up from Florence airport?", "lang": "en", "relevant": [["services", "Transfers"]]}
+{"query": "Accettate cani?", "lang": "it", "relevant": [["policies", "Pets"]]}
+{"query": "A che ora bisogna lasciare la camera l'ultimo giorno?", "lang": "it", "relevant": [["policies", "Check-in and check-out"]]}
+{"query": "Quanto costa la tassa di soggiorno?", "lang": "it", "relevant": [["prices", "Tourist tax"]]}
+{"query": "Siete aperti a febbraio?", "lang": "it", "relevant": [["about", "Opening period"], ["prices", "Seasons"]]}
+{"query": "Sono celiaco, potete preparare un menu senza glutine?", "lang": "it", "relevant": [["restaurant", "Diets and allergies"]]}
+{"query": "C'è il parcheggio? Posso ricaricare l'auto elettrica?", "lang": "it", "relevant": [["services", "Parking and electric cars"]]}
+{"query": "Qual è il soggiorno minimo per un appartamento ad agosto?", "lang": "it", "relevant": [["prices", "Minimum stay"]]}
+{"query": "Organizzate corsi di cucina?", "lang": "it", "relevant": [["services", "Cooking class"]]}
+{"query": "Quanto dista San Gimignano?", "lang": "it", "relevant": [["directions", "Distances to nearby places"], ["rooms", "Torre (junior suite)"]]}
+{"query": "Vorrei organizzare una festa di compleanno per 50 persone", "lang": "it", "relevant": [["events", "*"], ["restaurant", "Group dinners"]]}
+{"query": "Sind Hunde erlaubt?", "lang": "de", "relevant": [["policies", "Pets"]]}
+{"query": "Wie hoch ist die Anzahlung bei der Buchung?", "lang": "de", "relevant": [["policies", "Deposit and payment"]]}
+{"query": "Gibt es eine Klimaanlage in der Ferienwohnung?", "lang": "de", "relevant": [["faq", "Do you have air conditioning?"], ["rooms", "Granaio (apartment, up to 6 guests)"], ["rooms", "Overview"]]}
+{"query": "Wie komme ich mit dem Zug zu Ihnen?", "lang": "de", "relevant": [["directions", "By train"]]}
+{"query": "Ist das Frühstück im Zimmerpreis inbegriffen?", "lang": "de", "relevant": [["restaurant", "Breakfast"], ["prices", "Nightly prices"]]}
+{"query": "Kann man bei Ihnen heiraten?", "lang": "de", "relevant": [["events", "*"], ["faq", "Can we get married at CasaVaiano?"]]}
+{"query": "Gibt es einen Rabatt, wenn wir eine Woche bleiben?", "lang": "de", "relevant": [["prices", "Long-stay discount"]]}
+{"query": "Haben Sie ein Zimmer für eine Familie mit zwei Kindern?", "lang": "de", "relevant": [["rooms", "Vigna (family room)"], ["rooms", "Fienile (apartment, up to 4 guests)"]]}
+{"query": "Kann ich mit American Express bezahlen?", "lang": "de", "relevant": [["policies", "Deposit and payment"]]}
+{"query": "Um wie viel Uhr gibt es Abendessen?", "lang": "de", "relevant": [["restaurant", "Dinner"]]}

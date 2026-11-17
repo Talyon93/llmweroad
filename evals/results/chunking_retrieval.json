@@ -1,0 +1,71 @@
+{
+  "headings": {
+    "chunks": 69,
+    "avg_words": 53,
+    "metrics": {
+      "all": {
+        "n": 30,
+        "hit@1": 0.867,
+        "hit@4": 0.933,
+        "mrr@4": 0.892
+      },
+      "en": {
+        "n": 10,
+        "hit@1": 0.8,
+        "hit@4": 0.9,
+        "mrr@4": 0.85
+      },
+      "it": {
+        "n": 10,
+        "hit@1": 0.9,
+        "hit@4": 0.9,
+        "mrr@4": 0.9
+      },
+      "de": {
+        "n": 10,
+        "hit@1": 0.9,
+        "hit@4": 1.0,
+        "mrr@4": 0.925
+      }
+    },
+    "misses": [
+      "Can you pick us up from Florence airport?",
+      "Quanto costa la tassa di soggiorno?"
+    ]
+  },
+  "fixed": {
+    "chunks": 31,
+    "avg_words": 135,
+    "metrics": {
+      "all": {
+        "n": 30,
+        "hit@1": 0.833,
+        "hit@4": 0.9,
+        "mrr@4": 0.867
+      },
+      "en": {
+        "n": 10,
+        "hit@1": 0.9,
+        "hit@4": 0.9,
+        "mrr@4": 0.9
+      },
+      "it": {
+        "n": 10,
+        "hit@1": 0.6,
+        "hit@4": 0.8,
+        "mrr@4": 0.7
+      },
+      "de": {
+        "n": 10,
+        "hit@1": 1.0,
+        "hit@4": 1.0,
+        "mrr@4": 1.0
+      }
+    },
+    "misses": [
+      "Can you pick us up from Florence airport?",
+      "C'è il parcheggio? Posso ricaricare l'auto elettrica?",
+      "Organizzate corsi di cucina?"
+    ]
+  }
+}

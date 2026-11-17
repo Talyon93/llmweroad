@@ -15,5 +15,14 @@ uv run ruff format --check .
 uv run pytest
 ```
 
+Retrieval:
+
+```bash
+uv run python scripts/build_index.py        # build/refresh the Chroma index (both strategies)
+uv run python scripts/compare_chunking.py   # retrieval metrics for headings vs fixed chunking
+```
+
+The first run downloads the embedding model (~220 MB) into `.cache/`.
+
 Copy `.env.example` to `.env` and fill in the keys you need. `.env` is git-ignored.
 Tests marked `live` call real APIs and are skipped by default (`uv run pytest -m live` to run them).
