@@ -51,3 +51,34 @@ default. Both carried cost, so trace totals were 2x the real spend.
   (needed for cost per node) and priced from my own table. Regression test added.
 - Side check: Langfuse's built-in price for `claude-haiku-5-5` matched my table to the cent
   fraction ($0.0000388), an independent check of the cost maths.
+
+## 2026-11-17 · First live agent run (9 hand-written messages, routing on)
+
+`uv run python scripts/ask.py --today 2026-11-17 "..."`
+
+| message | path | models | cost | latency |
+|---|---|---|---|---|
+| IT dogs allowed? | answered | haiku, haiku | $0.0006 | 6.8 s |
+| EN room 7-10 May | answered, check_availability + 2x quote_stay | haiku, opus x3 | $0.0444 | 14.8 s |
+| DE train + taxi | answered | haiku, haiku | $0.0003 | 3.7 s |
+| IT complaint + refund | escalated by guard | haiku, opus | $0.0141 | 6.4 s |
+| EN wedding 80 guests | escalated by guard | haiku, opus | $0.0146 | 8.0 s |
+| EN prompt injection + 50% off | escalated by guard (discount_request) | haiku, opus | $0.0112 | 6.9 s |
+| DE dog, 14-21 Aug | answered, check_availability: dog units booked | haiku, opus x2 | $0.0220 | 9.0 s |
+| IT tourist tax 2 adults + child | answered | haiku, haiku | $0.0003 | 3.4 s |
+| EN restaurant on Monday | answered | haiku, haiku | $0.0003 | 2.4 s |
+
+Good: tool use correct on both booking questions (3 nights x €115 = €345, deposit €103.50;
+August fully booked for dog-friendly units, suggested flexibility). Escalation drafts are usable
+and list what Giulia must check. Weekday claims verified.
+
+Problems found by reading the replies (inputs for the eval set and M6):
+- **Grounding false negative.** Haiku computed the tourist tax itself (2 x €1.50 x 5 = €15),
+  breaking prompt rule 2. Correct by luck, and it passed the amount check only because €15 is
+  also the dog fee in the KB. Matching against a set of known numbers is a coarse net.
+- **Ungrounded non-numeric fact.** DE reply: taxi from the station takes "etwa 20 Minuten" -
+  not in the KB. The amount check cannot see this; the LLM judge must.
+- **Register.** "Liebe Gästin, lieber Gast", "Ciao! ... Con affetto": too informal for the
+  business. Left unfixed on purpose, to measure the prompt change in M6.
+- **Cost spread.** A booking answer on Opus with 3 decide turns costs ~150x a Haiku FAQ answer.
+  M6 candidate: Haiku for the tool loop on simple bookings.

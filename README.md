@@ -24,5 +24,11 @@ uv run python scripts/compare_chunking.py   # retrieval metrics for headings vs 
 
 The first run downloads the embedding model (~220 MB) into `.cache/`.
 
+Ask the assistant (needs `.env`):
+
+```bash
+uv run python scripts/ask.py --today 2026-11-17 "Accettate cani?"
+```
+
 Copy `.env.example` to `.env` and fill in the keys you need. `.env` is git-ignored.
 Tests marked `live` call real APIs and are skipped by default (`uv run pytest -m live` to run them).

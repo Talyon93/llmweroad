@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     chunking_strategy: Literal["headings", "fixed"] = "headings"
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     retrieval_k: int = 4
+    retrieval_query: Literal["original", "rewritten", "both"] = "both"
+    max_tool_iterations: int = 4
 
     @property
     def tracing_enabled(self) -> bool:
