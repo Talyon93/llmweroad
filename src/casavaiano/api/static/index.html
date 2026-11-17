@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CasaVaiano assistant</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --panel: #fffdf9; --ink: #2b2620; --muted: #7a7064; --line: #e4ddd2;
+    --accent: #6b7b3a; --accent-ink: #fff; --guest: #ece6dc; --warn: #b5651d; --ok: #4f7a3a;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1a17; --panel: #24211d; --ink: #ece6dc; --muted: #a39887; --line: #38332c;
+      --accent: #9aab5e; --accent-ink: #1c1a17; --guest: #2f2b25; --warn: #e0954f; --ok: #9cc27f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header { padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex;
+           align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 18px; font-weight: 650; }
+  header span { color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+         height: calc(100vh - 53px); }
+  @media (max-width: 860px) {
+    main { grid-template-columns: 1fr; height: auto; }
+    #details { border-left: 0; border-top: 1px solid var(--line); }
+  }
+  #chat { display: flex; flex-direction: column; min-height: 70vh; }
+  #log { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column;
+         gap: 12px; }
+  .msg { max-width: 78%; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap;
+         overflow-wrap: anywhere; }
+  .guest { align-self: flex-end; background: var(--guest); }
+  .bot { align-self: flex-start; background: var(--panel); border: 1px solid var(--line);
+         cursor: pointer; }
+  .bot.selected { outline: 2px solid var(--accent); }
+  .bot .meta { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px;
+           border-radius: 999px; border: 1px solid currentColor; margin-right: 6px; }
+  .answered { color: var(--ok); } .escalated { color: var(--warn); }
+  #examples { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 20px 10px; }
+  #examples button { font: inherit; font-size: 12.5px; padding: 4px 10px; border-radius: 999px;
+                     border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+                     cursor: pointer; }
+  form { display: flex; gap: 8px; padding: 12px 20px 20px; border-top: 1px solid var(--line); }
+  textarea { flex: 1; resize: none; font: inherit; padding: 10px 12px; border-radius: 10px;
+             border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+  form button { font: inherit; font-weight: 600; padding: 0 18px; border: 0; border-radius: 10px;
+                background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+  form button:disabled { opacity: .5; cursor: wait; }
+  #details { border-left: 1px solid var(--line); background: var(--panel); overflow-y: auto;
+             padding: 18px 20px; }
+  #details h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
+                color: var(--muted); margin: 18px 0 8px; }
+  #details h2:first-child { margin-top: 0; }
+  .empty { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  td { padding: 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:last-child { text-align: right; font-family: var(--mono); }
+  details { border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px;
+            margin-bottom: 6px; font-size: 13px; }
+  summary { cursor: pointer; font-family: var(--mono); }
+  pre { font-family: var(--mono); font-size: 12px; white-space: pre-wrap;
+        overflow-wrap: anywhere; margin: 6px 0 0; }
+  .box { border-left: 3px solid var(--warn); padding: 6px 10px; margin: 6px 0;
+         white-space: pre-wrap; font-size: 13.5px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <h1>CasaVaiano · guest assistant</h1>
+  <span>Demo with fictional data · IT / EN / DE</span>
+</header>
+<main>
+  <section id="chat">
+    <div id="log" aria-live="polite"></div>
+    <div id="examples"></div>
+    <form id="form">
+      <textarea id="input" rows="2" maxlength="4000"
+        placeholder="Write as a guest… (Enter to send, Shift+Enter for a new line)"></textarea>
+      <button id="send" type="submit">Send</button>
+    </form>
+  </section>
+  <aside id="details"><p class="empty">Send a message. What the agent did shows up here.</p></aside>
+</main>
+<script>
+const EXAMPLES = [
+  "Accettate cani? Abbiamo un labrador.",
+  "Hi! 2 adults, a room from 7 to 10 May 2027, anything free and how much?",
+  "Wie komme ich mit dem Zug zu Ihnen?",
+  "We'd love to have our wedding reception with 80 guests in September 2027.",
+  "La doccia non funzionava, vogliamo un rimborso.",
+];
+const session = crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
+const log = document.getElementById("log");
+const details = document.getElementById("details");
+const input = document.getElementById("input");
+const send = document.getElementById("send");
+
+const el = (tag, attrs = {}, ...children) => {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) node[k] = v;
+  node.append(...children);
+  return node;
+};
+const usd = (v) => "$" + v.toFixed(v < 0.01 ? 5 : 4);
+const secs = (ms) => (ms / 1000).toFixed(1) + " s";
+
+for (const text of EXAMPLES) {
+  document.getElementById("examples").append(
+    el("button", { type: "button", onclick: () => { input.value = text; input.focus(); } }, text));
+}
+
+function showDetails(r) {
+  details.replaceChildren();
+  details.append(el("h2", {}, "Outcome"),
+    el("p", {}, el("span", { className: `badge ${r.status}` }, r.status),
+      `intent ${r.intent} · language ${r.language}`));
+  if (r.escalation) {
+    const e = r.escalation;
+    details.append(el("h2", {}, `For Giulia · priority ${e.priority}`),
+      el("div", { className: "box" }, e.owner_summary),
+      el("h2", {}, "Draft reply to edit"), el("div", { className: "box" }, e.draft_reply));
+    if (e.missing_info.length) {
+      details.append(el("h2", {}, "To check"),
+        el("ul", {}, ...e.missing_info.map((m) => el("li", {}, m))));
+    }
+    details.append(el("p", { className: "empty" }, `Reason: ${r.escalation_reason}`));
+  }
+  details.append(el("h2", {}, "LLM calls"));
+  const table = el("table");
+  for (const c of r.calls) {
+    table.append(el("tr", {}, el("td", {}, `${c.node} · ${c.model.replace("claude-", "")}`),
+      el("td", {}, `${c.input_tokens}→${c.output_tokens} tok · ${secs(c.latency_ms)} · ${usd(c.cost_usd)}`)));
+  }
+  table.append(el("tr", {}, el("td", {}, el("b", {}, "Total")),
+    el("td", {}, `${secs(r.latency_ms)} · ${usd(r.cost_usd)}`)));
+  details.append(table);
+  if (r.tools.length) {
+    details.append(el("h2", {}, "Tool calls"));
+    for (const t of r.tools) {
+      details.append(el("details", {}, el("summary", {}, t.name),
+        el("pre", {}, "input " + JSON.stringify(t.input, null, 1)),
+        el("pre", {}, "output " + JSON.stringify(t.output, null, 1))));
+    }
+  }
+  details.append(el("h2", {}, "Retrieved chunks"),
+    el("p", {}, r.sources.join(", ") || "none"));
+  if (r.trace_url) {
+    details.append(el("p", {}, el("a", { href: r.trace_url, target: "_blank", rel: "noopener" },
+      "Open trace in Langfuse ↗")));
+  }
+}
+
+const withBold = (text) =>
+  text.split(/\*\*(.+?)\*\*/g).map((part, i) => (i % 2 ? el("strong", {}, part) : part));
+
+function addBot(r) {
+  const bubble = el("div", { className: "msg bot" }, ...withBold(r.reply),
+    el("span", { className: "meta" }, el("span", { className: `badge ${r.status}` }, r.status),
+      `${r.intent} · ${secs(r.latency_ms)} · ${usd(r.cost_usd)}`));
+  bubble.onclick = () => {
+    document.querySelectorAll(".bot.selected").forEach((b) => b.classList.remove("selected"));
+    bubble.classList.add("selected");
+    showDetails(r);
+  };
+  log.append(bubble);
+  bubble.onclick();
+}
+
+async function submit(event) {
+  event.preventDefault();
+  const message = input.value.trim();
+  if (!message) return;
+  log.append(el("div", { className: "msg guest" }, message));
+  input.value = "";
+  send.disabled = true;
+  const waiting = el("div", { className: "msg bot" }, "…");
+  log.append(waiting);
+  log.scrollTop = log.scrollHeight;
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message, session_id: session }),
+    });
+    const body = await res.json();
+    waiting.remove();
+    if (!res.ok) throw new Error(body.detail || res.statusText);
+    addBot(body);
+  } catch (err) {
+    waiting.textContent = "Error: " + err.message;
+  } finally {
+    send.disabled = false;
+    log.scrollTop = log.scrollHeight;
+    input.focus();
+  }
+}
+
+document.getElementById("form").addEventListener("submit", submit);
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) submit(e);
+});
+</script>
+</body>
+</html>
