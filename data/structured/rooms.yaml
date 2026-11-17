@@ -1,0 +1,74 @@
+# Source of truth for units and nightly prices (EUR per unit per night).
+# Room prices include breakfast. Apartment prices do not.
+# data/kb/prices.md must match this file (enforced by tests/test_data_consistency.py).
+units:
+  - id: ulivo
+    name: Ulivo
+    kind: room
+    description: Double room, ground floor, garden view, step-free access
+    max_guests: 2
+    size_m2: 18
+    extra_bed: false
+    pets_allowed: true
+    accessible: true
+    prices: {low: 95, mid: 115, high: 140}
+  - id: cipresso
+    name: Cipresso
+    kind: room
+    description: Double or twin room, first floor, view of the cypress avenue
+    max_guests: 2
+    size_m2: 17
+    extra_bed: false
+    pets_allowed: false
+    accessible: false
+    prices: {low: 95, mid: 115, high: 140}
+  - id: girasole
+    name: Girasole
+    kind: room
+    description: Triple room, first floor, one double bed and one single bed
+    max_guests: 3
+    size_m2: 22
+    extra_bed: false
+    pets_allowed: false
+    accessible: false
+    prices: {low: 120, mid: 145, high: 175}
+  - id: vigna
+    name: Vigna
+    kind: room
+    description: Family room, first floor, double bed and two singles in an alcove
+    max_guests: 4
+    size_m2: 28
+    extra_bed: true
+    pets_allowed: false
+    accessible: false
+    prices: {low: 140, mid: 170, high: 210}
+  - id: torre
+    name: Torre
+    kind: room
+    description: Junior suite in the old tower, private terrace with panoramic view
+    max_guests: 2
+    size_m2: 30
+    extra_bed: true
+    pets_allowed: false
+    accessible: false
+    prices: {low: 150, mid: 185, high: 230}
+  - id: fienile
+    name: Fienile
+    kind: apartment
+    description: Apartment in the former hayloft, one bedroom plus sofa bed, kitchenette, private garden
+    max_guests: 4
+    size_m2: 45
+    extra_bed: false
+    pets_allowed: true
+    accessible: true
+    prices: {low: 130, mid: 160, high: 200}
+  - id: granaio
+    name: Granaio
+    kind: apartment
+    description: Apartment in the old granary, two bedrooms, two bathrooms, full kitchen
+    max_guests: 6
+    size_m2: 80
+    extra_bed: false
+    pets_allowed: false
+    accessible: false
+    prices: {low: 180, mid: 220, high: 280}

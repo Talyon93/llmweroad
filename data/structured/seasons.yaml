@@ -1,0 +1,30 @@
+# Season calendar, closures, minimum stays and fees.
+# Dates are MM-DD and inclusive. A period may wrap over New Year.
+# The season of a night decides its price. The season of the arrival night decides the minimum stay.
+closed:
+  - {start: "01-07", end: "02-29", reason: Winter closure}
+
+periods:
+  - {season: low, start: "03-01", end: "03-31"}
+  - {season: mid, start: "04-01", end: "06-14"}
+  - {season: high, start: "06-15", end: "09-15"}
+  - {season: mid, start: "09-16", end: "11-02"}
+  - {season: low, start: "11-03", end: "12-19"}
+  - {season: high, start: "12-20", end: "01-06", label: Christmas and New Year}
+
+min_stay:
+  room: {low: 1, mid: 2, high: 3}
+  apartment: {low: 3, mid: 3, high: 7}
+
+fees:
+  extra_bed_per_night: 30
+  dog_per_night: 15
+  apartment_breakfast_per_person: 12
+  tourist_tax_per_person_per_night: 1.5
+  tourist_tax_max_nights: 7
+  tourist_tax_exempt_under_age: 14
+  long_stay_min_nights: 7
+  long_stay_discount_pct: 10
+  deposit_pct: 30
+  free_cancellation_days: 14
+  late_cancellation_pct: 50
