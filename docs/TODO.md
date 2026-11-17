@@ -29,8 +29,8 @@ Rigor:
 
 ## M7 follow-up
 
-- [ ] Verify `docker build` and `docker run` locally (Docker Desktop was not running when M7
-      was committed; the Dockerfile is written but not yet built).
+- [x] Verify `docker build` and `docker run` locally: image 1.44 GB (model and index baked in),
+      runs as non-root, /health and /chat OK, no downloads at startup, healthcheck healthy.
 - [ ] Answer prompt: Opus uses markdown bold and numbered lists despite rule 4; the demo page
       renders bold, but replies are meant for email. Measure the prompt fix in M6.
 
