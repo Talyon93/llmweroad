@@ -231,3 +231,9 @@ def test_smtp_notifier_builds_and_sends_message(monkeypatch):
     assert sent["login"] == ("bot@example.com", "pw")
     assert sent["msg"]["To"] == "owner@example.com"
     assert sent["msg"]["Reply-To"] == "guest@example.com"
+
+
+def test_cors_allows_health_check_from_the_site():
+    client = make_client(allowed_origins="https://www.casavaiano.it,http://127.0.0.1:5280")
+    response = client.get("/health", headers={"Origin": "http://127.0.0.1:5280"})
+    assert response.headers.get("access-control-allow-origin") == "http://127.0.0.1:5280"

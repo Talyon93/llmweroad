@@ -3,6 +3,14 @@
 Base URL: the Cloud Run service URL (to be published). The site's domain must be listed in
 `ALLOWED_ORIGINS`, otherwise the browser blocks the calls (CORS).
 
+Origins to allow in production:
+
+```
+ALLOWED_ORIGINS=https://www.casavaiano.it,https://casavaiano.it,https://casavaiano-anteprima.netlify.app,http://127.0.0.1:5280
+```
+
+The last one is the site's local preview; drop it if you prefer a stricter production config.
+
 ## POST /chat
 
 Request:

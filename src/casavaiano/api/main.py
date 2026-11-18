@@ -74,7 +74,10 @@ def create_app(
     origins = [o.strip() for o in settings.allowed_origins.split(",") if o.strip()]
     if origins:
         app.add_middleware(
-            CORSMiddleware, allow_origins=origins, allow_methods=["POST"], allow_headers=["*"]
+            CORSMiddleware,
+            allow_origins=origins,
+            allow_methods=["GET", "POST"],
+            allow_headers=["*"],
         )
     state: dict[str, Assistant] = {}
     lock = threading.Lock()
