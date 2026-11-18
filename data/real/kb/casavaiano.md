@@ -1,7 +1,8 @@
 # CasaVaiano
 
 <!-- Written by hand from the website's home page (index.html), PRODUCT.md, Slope's booking
-conditions and Tommaso's answers (18-19 November 2026). Only facts stated there; anything
+conditions, Tommaso's answers (18-19 November 2026) and facts he repeats consistently in his
+replies to guests (2025-2026, reviewed and approved by him; no personal data). Only facts stated there; anything
 missing goes in data/real/DA_COMPLETARE.md, not here. -->
 
 ## Chi siamo
@@ -54,18 +55,20 @@ autonomo. Sono sempre inclusi:
 ## Posti letto
 
 Tutti gli appartamenti hanno un letto matrimoniale e un divano letto matrimoniale: ospitano
-fino a 4 persone. In ogni appartamento si può aggiungere un letto singolo, con un supplemento,
-per arrivare a 5 persone. Per gruppi più numerosi servono due appartamenti.
+fino a 4 persone. In ogni appartamento si può aggiungere un letto singolo, con un supplemento di
+100 € per il soggiorno, per arrivare a 5 persone. Per gruppi più numerosi servono due appartamenti.
 
 ## Supplementi
 
-- Animali: benvenuti, 50 € una volta sola per le pulizie finali aggiuntive.
+- Letto singolo aggiuntivo: 100 € per il soggiorno.
+- Animali: 50 € una volta sola per le pulizie e la sanificazione finali.
 - Teli piscina: 5 € a persona a settimana.
 
 ## Animali
 
-Gli animali sono benvenuti. C'è un supplemento di 50 €, una volta sola per tutto il soggiorno
-(non a settimana), per le pulizie finali aggiuntive.
+Gli animali sono benvenuti: gatti e cani di taglia piccola o media. Il proprietario dell'animale
+risponde di eventuali danni. C'è un supplemento di 50 €, una volta sola per tutto il soggiorno
+(non a settimana), per le pulizie e la sanificazione finali.
 
 ## Arrivo e partenza
 
@@ -81,20 +84,29 @@ CasaVaiano è aperta da aprile a fine ottobre, e anche per Capodanno.
 Il soggiorno minimo è di 3 notti. A luglio e agosto si affitta solo da sabato a sabato, a
 settimane intere.
 
-## Pagamento e cancellazione
+## Pagamento
 
-Di solito si versa un anticipo al momento della prenotazione (non sempre, per esempio quando il
-soggiorno è molto vicino). Il saldo si paga alla partenza, in contanti o con carta di credito.
+Alla conferma della prenotazione si versa un acconto del 25% del valore del soggiorno, con
+bonifico oppure con carta tramite un link di pagamento sicuro. Per i soggiorni molto vicini di
+solito l'acconto non serve. Il saldo si paga alla partenza, in contanti o con carta di credito.
 Carte accettate: Visa, Mastercard, American Express, Maestro, Diners e altre.
 
-Le condizioni di prenotazione e di cancellazione sono indicate nel preventivo e nel sistema di
-prenotazione online.
+## Cancellazione
+
+- Fino a 30 giorni prima dell'arrivo: cancellazione gratuita.
+- Da 29 a 7 giorni prima dell'arrivo: si perde l'acconto versato.
+- Negli ultimi 7 giorni: penale del 50% dell'intero soggiorno.
+
+Se l'appartamento viene affittato di nuovo per le stesse date, non si applica nessuna penale. Chi
+ha prenotato tramite Booking.com o altri portali deve cancellare sul portale stesso. I rimborsi
+arrivano di solito in 3-10 giorni lavorativi, secondo i tempi della banca. Le condizioni sono
+indicate anche nel preventivo e nel sistema di prenotazione online.
 
 ## Tassa di soggiorno
 
 La tassa di soggiorno del Comune di Gambassi Terme è di 1,50 € a persona a notte, dai 14 anni in
-su, per un massimo di 6 notti. Non è compresa nel prezzo. Sono esenti, tra gli altri, le persone con disabilità non
-autosufficienti.
+su, per un massimo di 6 notti. Non è compresa nel prezzo. Sono esenti, tra gli altri, le persone
+con disabilità non autosufficienti.
 
 ## Wi-Fi
 
@@ -102,12 +114,46 @@ C'è il Wi-Fi via satellite (Starlink). Abbiamo cercato di renderlo il migliore 
 tanto può avere qualche problema, e di solito funziona meglio all'esterno che dentro gli
 appartamenti. Chi deve lavorare da remoto fa bene a saperlo prima.
 
-## Come arrivare e spesa
+## Come arrivare: in auto, dall'aeroporto di Pisa, strada sterrata
+
+Posizione su Google Maps: https://www.google.com/maps/search/?api=1&query=Agriturismo+Casavaiano+Gambassi+Terme
+Prima dell'arrivo mandiamo per email la mappa e le indicazioni per raggiungerci.
 
 L'ultimo chilometro è una strada sterrata: finora nessun ospite ha avuto problemi, e sono
 arrivati anche camper e auto sportive.
 
-Il supermercato più vicino è a Volterra: chi conosce già CasaVaiano arriva con la spesa fatta.
+L'auto è consigliata, sia per arrivare sia per girare la zona, che è collinare e di campagna.
+Dall'aeroporto di Pisa ci vuole circa un'ora e mezza, in parte in superstrada e in parte su strade
+di collina; in aeroporto ci sono le principali società di noleggio auto.
+
+## Spesa e supermercato
+
+Il supermercato più vicino è a Volterra, a circa 15 minuti d'auto: chi conosce già CasaVaiano
+arriva con la spesa fatta.
+
+## Mangiare
+
+Non ci sono ristorante né colazione: ogni appartamento ha una cucina attrezzata, così gli ospiti
+sono liberi di organizzarsi. Per gli ospiti ci sono tre barbecue. Ogni tanto organizziamo una
+serata pizza. Ci sono diversi ristoranti a 7-13 km, che conviene prenotare; all'arrivo diamo una
+mappa con i nostri consigli su ristoranti e cose da vedere.
+
+## Feste ed eventi
+
+CasaVaiano non ospita matrimoni né eventi privati. Le feste in famiglia, per esempio un
+compleanno durante il soggiorno, sono benvenute. Per i gruppi numerosi conviene chiedere prima,
+perché i posti letto sono limitati.
+
+## Bambini
+
+La culla con biancheria è inclusa e viene preparata prima dell'arrivo su richiesta. Il divano letto
+va bene sia per adulti sia per bambini. Per i bambini ci sono il parco giochi, il campo da calcio,
+il ping-pong e l'angolo bambini della piscina.
+
+## Durante il soggiorno
+
+Se qualcosa non va, è meglio segnalarlo subito allo staff, di persona o su WhatsApp, così si
+risolve sul momento.
 
 ## Come prenotare e prezzi
 
@@ -128,6 +174,7 @@ A luglio e agosto gli appartamenti si affittano solo da sabato a sabato, a setti
 - Tommaso: +39 348 928 3412
 - Email: casavaianomail@gmail.com
 - Indirizzo: Via Volterrana Sud 80, Podere Vaiano, 50050 Gambassi Terme (FI)
+- Google Maps: https://www.google.com/maps/search/?api=1&query=Agriturismo+Casavaiano+Gambassi+Terme
 - Instagram: instagram.com/agriturismocasavaiano
 - Facebook: facebook.com/agriturismo.casavaiano
 

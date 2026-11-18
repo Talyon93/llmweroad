@@ -130,3 +130,26 @@ Remaining 7 failures, all real:
   and needs 7 nights in high season.
 
 Cost of one dev run: agent $0.53 (62 queries, $0.0085/query), judge $0.88-0.98.
+
+## 2026-11-19 · Real knowledge base, informed by the owner's sent emails
+
+Source: 268 replies to guests from the owner's mailbox (Jan 2025 - Nov 2026), read over IMAP
+read-only. Haiku extracted general facts, paraphrased guest questions and style notes per email,
+instructed to drop personal data; nothing raw saved, nothing sent to Langfuse. Cost: $0.10.
+
+- Topics guests ask most: availability (140), apartments (137), prices/quote (112),
+  deposit/payment (78), cancellation (59), check-in (51), pets (41), children (38).
+- About 10 facts the owner repeats consistently (25% deposit, 30/7-day cancellation tiers, extra
+  bed €100 per stay, no weddings, three barbecues...) were shown to the owner; he approved 8 and
+  dropped 2 (vacuum cleaner, pricing remarks). 3 conflicts resolved by him (check-in time:
+  Slope's 16-18 wins over older emails).
+- Style: friendly in 216 of 268 replies ("Ciao NAME" / "Hello NAME", "Saluti" / "Best regards").
+  Applied to the answer prompt in live mode only, so the demo eval baseline is not affected.
+
+Live checks in real mode, and fixes:
+- "Se prenoto e poi devo cancellare?" was classified booking_change and escalated. Classifier
+  prompt now says a hypothetical cancellation question is `policies`. Re-test: answered.
+- "Pisa airport + restaurant?": the directions section ranked 5th-6th behind long nearby-places
+  chunks. Fix 1: section heading names the airport ("Come arrivare: in auto, dall'aeroporto di
+  Pisa, strada sterrata") -> ranked 1st (0.60). Fix 2: with two questions in one message, 6 chunks
+  dropped the restaurant section; `RETRIEVAL_K=6` (8 chunks after merging) answers both, $0.0004.

@@ -71,3 +71,25 @@ def test_import_script_renders_site_data():
     assert "## Certaldo Alto (a pochi minuti)" in md
     assert "- Casa Boccaccio: Museo." in md
     assert Path(script.KB_OUT) == REAL_KB
+
+
+def test_owner_tone_only_in_live_mode():
+    from casavaiano.agent.prompts import Persona, answer_system
+
+    assert "the way the owners write" in answer_system(Persona("Rocco", "Tommaso", live=True))
+    assert "the way the owners write" not in answer_system(Persona("Rocco", "Giulia"))
+
+
+def test_kb_has_the_facts_approved_from_the_emails():
+    text = " ".join(c.text for c in chunk_kb("headings", REAL_KB))
+    for fact in (
+        "acconto del 25%",
+        "Fino a 30 giorni",
+        "100 € per il soggiorno",
+        "tre barbecue",
+        "non ospita matrimoni",
+        "google.com/maps",
+        "taglia piccola o media",
+    ):
+        assert fact in text, fact
+    assert "aspirapolvere" not in text

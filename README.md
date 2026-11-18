@@ -215,7 +215,7 @@ knowledge base generated from the website):
 
 ```bash
 uv run python scripts/import_site_kb.py --site ../CasavaianoWebsite   # after editing the site
-AVAILABILITY_SOURCE=slope KB_DIR=data/real/kb uv run uvicorn casavaiano.api.main:app --port 8000
+AVAILABILITY_SOURCE=slope KB_DIR=data/real/kb RETRIEVAL_K=6 uv run uvicorn casavaiano.api.main:app --port 8000
 ```
 
 The demo/eval mode (default) keeps using the fictional data in `data/kb` and `data/structured`;
