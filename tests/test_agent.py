@@ -10,7 +10,7 @@ from casavaiano.agent.grounding import (
     ungrounded_amounts,
 )
 from casavaiano.agent.guards import escalation_reason
-from casavaiano.agent.prompts import acknowledgement
+from casavaiano.agent.prompts import Persona, acknowledgement, answer_system
 from casavaiano.agent.state import Classification, EscalationDraft
 from casavaiano.config import Settings
 from casavaiano.llm import LLMError, ToolCall
@@ -145,7 +145,7 @@ def test_guard_escalates_complaint_without_answering():
 
     assert response.status == "escalated"
     assert response.escalation_reason == "intent:complaint"
-    assert response.reply == acknowledgement("it")
+    assert response.reply == acknowledgement("it", Persona("Rocco", "Giulia"))
     assert response.escalation == DRAFT
     assert fake.calls("decide") == []
     assert fake.calls("escalate")[0].model == STRONG
@@ -203,7 +203,7 @@ def test_total_llm_outage_still_escalates_with_fallback_draft():
     assert response.status == "escalated"
     assert response.escalation_reason == "classification_failed"
     assert response.escalation.priority == "high"
-    assert response.reply == acknowledgement("en")
+    assert response.reply == acknowledgement("en", Persona("Rocco", "Giulia"))
 
 
 def test_tool_loop_is_bounded():
@@ -279,3 +279,27 @@ def test_amounts_and_grounding():
     assert amounts_in(reply) == [1867.5, 560.25, 21]
     sources = numbers_in_sources(["Tourist tax €1.50"], [{"total": 1867.5, "deposit": 560.25}])
     assert ungrounded_amounts(reply, sources) == [21]
+
+
+@pytest.mark.parametrize(
+    ("language", "owner", "expected"),
+    [
+        ("it", "Giulia", "L'ho passato a Giulia"),
+        ("it", None, "L'ho passato alla famiglia"),
+        ("de", None, "an die Familie weitergeleitet"),
+        ("en", "Anna", "passed it on to Anna"),
+        ("fr", None, "to the family"),
+    ],
+)
+def test_acknowledgement_names_and_discloses_assistant(language, owner, expected):
+    text = acknowledgement(language, Persona("Rocco", owner))
+    assert expected in text
+    assert "Rocco" in text
+    assert "virtual" in text or "virtuel" in text
+
+
+def test_answer_prompt_uses_persona():
+    prompt = answer_system(Persona("Rocco", None))
+    assert "You are Rocco" in prompt
+    assert "Giulia" not in prompt
+    assert "virtual assistant" in prompt

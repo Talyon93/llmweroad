@@ -34,6 +34,7 @@ class Nodes:
         self.retriever = retriever
         self.settings = settings
         self.tracer = tracer
+        self.persona = prompts.persona(settings)
 
     def classify(self, state: AgentState) -> dict[str, Any]:
         primary = classify_route(self.settings)
@@ -101,7 +102,12 @@ class Nodes:
         ]
         try:
             result = self._call(
-                "decide", route, prompts.ANSWER_SYSTEM, messages, 4096, tools=tool_definitions()
+                "decide",
+                route,
+                prompts.answer_system(self.persona),
+                messages,
+                4096,
+                tools=tool_definitions(),
             )
         except LLMError as exc:
             return {"escalation_reason": f"llm_error:{type(exc).__name__}"}
@@ -160,7 +166,7 @@ class Nodes:
             result = self._call(
                 "escalate",
                 escalate_route(self.settings),
-                prompts.ESCALATE_SYSTEM,
+                prompts.escalate_system(self.persona),
                 [{"role": "user", "content": user}],
                 4096,
                 output_schema=EscalationDraft,
@@ -176,7 +182,7 @@ class Nodes:
             calls = []
         return {
             "escalation": draft,
-            "reply": prompts.acknowledgement(language),
+            "reply": prompts.acknowledgement(language, self.persona),
             "calls": calls,
         }
 

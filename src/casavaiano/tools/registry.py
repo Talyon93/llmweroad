@@ -70,7 +70,7 @@ def tool_definitions() -> list[dict[str, Any]]:
         {
             "name": ESCALATE_TOOL,
             "description": (
-                "Hand the conversation to Giulia (the owner). Use when the answer is not in the "
+                "Hand the conversation to the owners (a human). Use when the answer is not in the "
                 "context or tool results, when the guest asks for an exception to a policy, a "
                 "special discount, or anything you are not sure about."
             ),

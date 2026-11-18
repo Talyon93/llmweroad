@@ -69,6 +69,7 @@ flowchart LR
 | **fastembed + `paraphrase-multilingual-MiniLM-L12-v2`** (ONNX) | Local, free, multilingual (IT/DE questions against an English KB), no PyTorch: ~1 GB smaller image than sentence-transformers. | Weaker on idioms than large models; mitigated by the English query rewrite. |
 | **Chunking by `##` section**, prefixed with "document title - section" | Each chunk is a self-contained answer unit; the prefix tells the embedding what the chunk is about. | Relies on a well-structured KB (enforced by tests). |
 | **Structured data as the source of truth** for prices and availability | `data/structured/` feeds the tools; a test fails if the markdown KB disagrees with it. | Two places to update; the test makes drift impossible to miss. |
+| **Persona: Rocco**, named after the farm's cat; owner name configurable (`ASSISTANT_NAME`, `OWNER_NAME`) | Every reply is signed as the virtual assistant, so guests know they are talking to an AI; the acknowledgement after an escalation names who will reply. | The persona stays in greeting and signature: a joking cat is wrong when a guest complains. |
 | **Langfuse**, one trace per message | Spans per node, generations with tokens, latency and cost, retrieved chunk IDs and scores, tool inputs and outputs, eval scores attached to traces. | Cost computed from our own price table (Langfuse may not know new models). |
 
 ### Chunking, retrieval only (30 labelled queries, k=4)

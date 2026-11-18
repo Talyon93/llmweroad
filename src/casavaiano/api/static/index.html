@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CasaVaiano assistant</title>
+<title>Rocco · CasaVaiano</title>
 <style>
   :root {
     --bg: #f6f3ee; --panel: #fffdf9; --ink: #2b2620; --muted: #7a7064; --line: #e4ddd2;
@@ -73,7 +73,7 @@
 </head>
 <body>
 <header>
-  <h1>CasaVaiano · guest assistant</h1>
+  <h1><span id="name">Rocco</span> · CasaVaiano virtual assistant</h1>
   <span>Demo with fictional data · IT / EN / DE</span>
 </header>
 <main>
@@ -96,6 +96,12 @@ const EXAMPLES = [
   "We'd love to have our wedding reception with 80 guests in September 2027.",
   "La doccia non funzionava, vogliamo un rimborso.",
 ];
+let OWNER = "the owner";
+fetch("/health").then((r) => r.json()).then((h) => {
+  document.getElementById("name").textContent = h.assistant_name;
+  document.title = `${h.assistant_name} · CasaVaiano`;
+  if (h.owner_name) OWNER = h.owner_name;
+}).catch(() => {});
 const session = crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
 const log = document.getElementById("log");
 const details = document.getElementById("details");
@@ -123,7 +129,7 @@ function showDetails(r) {
       `intent ${r.intent} · language ${r.language}`));
   if (r.escalation) {
     const e = r.escalation;
-    details.append(el("h2", {}, `For Giulia · priority ${e.priority}`),
+    details.append(el("h2", {}, `For ${OWNER} · priority ${e.priority}`),
       el("div", { className: "box" }, e.owner_summary),
       el("h2", {}, "Draft reply to edit"), el("div", { className: "box" }, e.draft_reply));
     if (e.missing_info.length) {

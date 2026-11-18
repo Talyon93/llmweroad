@@ -31,6 +31,10 @@ class Settings(BaseSettings):
     retrieval_query: Literal["original", "rewritten", "both"] = "both"
     max_tool_iterations: int = 4
     judge_model: str = "claude-opus-5-5"
+    assistant_name: str = "Rocco"
+    # Fictional owner of the demo knowledge base. For the real site set OWNER_NAME to the
+    # person who handles requests, or to an empty string to refer to "the family".
+    owner_name: str = "Giulia"
 
     @property
     def tracing_enabled(self) -> bool:

@@ -65,6 +65,8 @@ def create_app(assistant_factory: Callable[[], Assistant] = _default_assistant) 
             "cheap_model": settings.cheap_model,
             "strong_model": settings.strong_model,
             "tracing": get_tracer().enabled,
+            "assistant_name": settings.assistant_name,
+            "owner_name": settings.owner_name or None,
         }
 
     @app.post("/chat", response_model=ChatResponse)
