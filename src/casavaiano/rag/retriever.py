@@ -1,4 +1,5 @@
 import hashlib
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -8,6 +9,8 @@ from chromadb.config import Settings as ChromaSettings
 from casavaiano.config import INDEX_DIR, KB_DIR, get_settings
 from casavaiano.rag.chunking import Chunk, Strategy, chunk_kb
 from casavaiano.rag.embeddings import Embedder, FastEmbedder
+
+MAX_NAMED = 3
 
 
 @dataclass(frozen=True)
@@ -40,6 +43,7 @@ class Retriever:
             path=str(index_dir), settings=ChromaSettings(anonymized_telemetry=False)
         )
         self._collection = None
+        self._chunks: list[Chunk] | None = None
 
     @property
     def collection_name(self) -> str:
@@ -66,6 +70,7 @@ class Retriever:
                 return False
             self._client.delete_collection(self.collection_name)
         self._collection = self._build(fingerprint)
+        self._chunks = None
         return True
 
     def search(self, query: str, k: int | None = None) -> list[RetrievedChunk]:
@@ -92,6 +97,20 @@ class Retriever:
             )
         ]
 
+    def named(self, text: str) -> list[RetrievedChunk]:
+        """Chunks whose section title (an apartment, a place) is named in the text. Embeddings are
+        weak on proper nouns: "Ginestra" retrieved the chunk about "ginestre in fiore" instead."""
+        if self._chunks is None:
+            self._chunks = chunk_kb(self.strategy, self.kb_dir)
+        found = []
+        for chunk in self._chunks:
+            title = chunk.sections[0].split(" (")[0].strip()
+            if len(title) >= 4 and re.search(rf"\b{re.escape(title)}\b", text, re.IGNORECASE):
+                found.append(
+                    RetrievedChunk(chunk.id, chunk.text, chunk.source, chunk.sections, score=1.0)
+                )
+        return found[:MAX_NAMED]
+
     def _build(self, fingerprint: str):
         chunks: list[Chunk] = chunk_kb(self.strategy, self.kb_dir)
         collection = self._client.create_collection(
@@ -107,8 +126,8 @@ class Retriever:
         return collection
 
 
-def default_retriever(strategy: Strategy | None = None) -> Retriever:
-    settings = get_settings()
+def default_retriever(strategy: Strategy | None = None, settings=None) -> Retriever:
+    settings = settings or get_settings()
     return Retriever(
         strategy or settings.chunking_strategy,
         FastEmbedder(settings.embedding_model),

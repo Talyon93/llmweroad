@@ -56,3 +56,10 @@ def test_retrieval_metrics():
     assert hit_at(2, 4)
     assert not hit_at(None, 4)
     assert reciprocal_rank(2) == 0.5
+
+
+def test_named_sections_are_found_by_title(retriever):
+    found = retriever.named("Is the Pets policy strict? And the swimming pool?")
+    assert {c.sections[0] for c in found} >= {"Pets", "Swimming pool"}
+    assert all(c.score == 1.0 for c in found)
+    assert retriever.named("nothing relevant here") == []

@@ -84,6 +84,8 @@ class Nodes:
                         best[chunk.id] = chunk
             chunks = sorted(best.values(), key=lambda c: c.score, reverse=True)
             chunks = chunks[: self.settings.retrieval_k + 2]
+            named = getattr(self.retriever, "named", lambda _: [])(state["message"])
+            chunks = [*named, *[c for c in chunks if c.id not in {n.id for n in named}]]
             span.update(output=[{"id": c.id, "score": c.score} for c in chunks])
         return {"chunks": chunks}
 

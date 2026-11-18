@@ -1,7 +1,7 @@
 <!-- Generated from the website by scripts/import_site_kb.py: edit the site, not here. -->
 # Gli appartamenti
 
-CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna).
+CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna). Sono: Capanna, Girasole, Ginestra, Cipresso, Castagno, Ciclamino, Papavero, Fiordaliso.
 
 ## Capanna
 

@@ -93,3 +93,20 @@ def test_kb_has_the_facts_approved_from_the_emails():
     ):
         assert fact in text, fact
     assert "aspirapolvere" not in text
+
+
+def test_assistant_retrieves_from_the_kb_in_its_own_settings(tmp_path, hash_embedder):
+    """Regression: a settings copy with the real KB used to get a retriever on the demo KB."""
+    import pytest
+
+    from casavaiano.agent.graph import Assistant
+    from casavaiano.llm.fake import FakeLLM
+    from casavaiano.observability import Tracer
+    from casavaiano.rag.retriever import Retriever
+
+    live = Settings(_env_file=None, kb_dir="data/real/kb")
+    quiet = Tracer(Settings(_env_file=None, langfuse_public_key=None, langfuse_secret_key=None))
+    Assistant(FakeLLM(lambda r: ""), settings=live, tracer=quiet)
+    demo_retriever = Retriever("headings", hash_embedder, index_dir=tmp_path)
+    with pytest.raises(ValueError, match="Retriever reads"):
+        Assistant(FakeLLM(lambda r: ""), retriever=demo_retriever, settings=live, tracer=quiet)

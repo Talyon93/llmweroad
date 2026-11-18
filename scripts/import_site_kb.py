@@ -45,7 +45,8 @@ def apartments_md(apartments: list[dict]) -> str:
         HEADER,
         "# Gli appartamenti",
         "",
-        "CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna).",
+        "CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna). "
+        f"Sono: {', '.join(a['name'] for a in apartments)}.",
         "",
     ]
     for a in apartments:

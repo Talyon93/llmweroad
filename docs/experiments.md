@@ -153,3 +153,37 @@ Live checks in real mode, and fixes:
   chunks. Fix 1: section heading names the airport ("Come arrivare: in auto, dall'aeroporto di
   Pisa, strada sterrata") -> ranked 1st (0.60). Fix 2: with two questions in one message, 6 chunks
   dropped the restaurant section; `RETRIEVAL_K=6` (8 chunks after merging) answers both, $0.0004.
+
+## 2026-11-19 · Rocco vs the owner on 30 real guest questions
+
+`scripts/real_eval.py`: 30 replies to guests (Jun 2025 - Nov 2026) spread over 15 topics, each
+guest's questions rewritten by Haiku as a new message without names or dates; Rocco answers in
+live mode; an Opus judge compares with the facts the owner wrote in the real reply. Cases and
+per-case reports stay in evals/real/ (git-ignored). Cost: $0.89 per run.
+
+**First run was invalid, and found a real bug.** Rocco answered with the fictional demo KB
+(Fienile, breakfast, pool May-September...). The script switched to live mode on a settings
+copy, but `default_retriever()` re-read the global settings. The guard added earlier only checked
+the toolbox, not the retriever. Fix: the retriever takes the assistant's settings, and the
+assistant now refuses a retriever whose KB differs from its settings (regression test).
+
+Valid run (real KB, live calendars):
+
+| outcome | cases |
+|---|---|
+| consistent with the owner | 6 |
+| consistent but missing points | 8 |
+| contradicts the owner | 3 |
+| handed to the owner | 13 |
+
+- Escalations: ~9 of 13 genuinely need a human (existing bookings, transfers to verify,
+  penalties, weddings, whole-property rental); the rest are topics missing from the KB (wine
+  tasting, cooking evenings, convertible rental). No invented facts in guest-facing replies.
+- Contradictions: 1 real error - Rocco said the Ginestra apartment does not exist. The embedding
+  retrieved Fiordaliso (whose text mentions "ginestre in fiore") instead of the Ginestra chunk.
+  Fixes: the apartments overview lists all 8 names, and sections named in the message are always
+  retrieved (`Retriever.named`, max 3). Re-test: answered correctly. 1 is a site-vs-owner
+  inconsistency (pool towels per person vs per towel); 1 is the judge reading a statement about
+  three specific apartments ("all on the ground floor") as general.
+- Recurring missing points: the pool is not heated (cold water in April/October), the stone walls
+  keep apartments cool, pets €50 per dog.

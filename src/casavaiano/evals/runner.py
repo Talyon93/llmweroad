@@ -56,7 +56,7 @@ def run_eval(
     cases = load_cases(split=config.split, ids=config.ids or None)[: config.limit]
 
     if retriever is None:
-        retriever = default_retriever(settings.chunking_strategy)
+        retriever = default_retriever(settings.chunking_strategy, settings)
         retriever.ensure_index()
     chunks = {c.id: c for c in chunk_kb(settings.chunking_strategy)}
     assistant = Assistant(llm, retriever, settings, tracer)

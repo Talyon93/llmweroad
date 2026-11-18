@@ -81,7 +81,12 @@ class Assistant:
     ):
         self.settings = settings or get_settings()
         self.tracer = tracer or get_tracer()
-        retriever = retriever or default_retriever(self.settings.chunking_strategy)
+        retriever = retriever or default_retriever(self.settings.chunking_strategy, self.settings)
+        expected_kb = self.settings.knowledge_base_dir.resolve()
+        if getattr(retriever, "kb_dir", expected_kb).resolve() != expected_kb:
+            raise ValueError(
+                f"Retriever reads {retriever.kb_dir} but the settings say {expected_kb}"
+            )
         self.graph = build_graph(Nodes(llm, retriever, self.settings, self.tracer))
 
     def run(
