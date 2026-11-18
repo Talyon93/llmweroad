@@ -43,7 +43,10 @@ class Retriever:
 
     @property
     def collection_name(self) -> str:
-        return f"kb_{self.strategy}"
+        if self.kb_dir.resolve() == KB_DIR.resolve():
+            return f"kb_{self.strategy}"
+        suffix = hashlib.sha256(str(self.kb_dir.resolve()).encode()).hexdigest()[:8]
+        return f"kb_{self.strategy}_{suffix}"
 
     def fingerprint(self) -> str:
         digest = hashlib.sha256(f"{self.strategy}|{self.embedder.name}".encode())
@@ -106,4 +109,8 @@ class Retriever:
 
 def default_retriever(strategy: Strategy | None = None) -> Retriever:
     settings = get_settings()
-    return Retriever(strategy or settings.chunking_strategy, FastEmbedder(settings.embedding_model))
+    return Retriever(
+        strategy or settings.chunking_strategy,
+        FastEmbedder(settings.embedding_model),
+        kb_dir=settings.knowledge_base_dir,
+    )

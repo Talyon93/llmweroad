@@ -15,7 +15,7 @@ from casavaiano.config import Settings
 from casavaiano.llm import LLMClient, LLMError, LLMRequest, LLMResult
 from casavaiano.observability import Tracer
 from casavaiano.rag.retriever import RetrievedChunk, Retriever
-from casavaiano.tools.registry import ESCALATE_TOOL, run_tool, tool_definitions, tool_result_block
+from casavaiano.tools.registry import ESCALATE_TOOL, make_toolbox, tool_result_block
 
 FALLBACK_CLASSIFICATION = Classification(
     intent="other",
@@ -35,6 +35,7 @@ class Nodes:
         self.settings = settings
         self.tracer = tracer
         self.persona = prompts.persona(settings)
+        self.toolbox = make_toolbox(settings)
 
     def classify(self, state: AgentState) -> dict[str, Any]:
         primary = classify_route(self.settings)
@@ -107,7 +108,7 @@ class Nodes:
                 prompts.answer_system(self.persona),
                 messages,
                 4096,
-                tools=tool_definitions(),
+                tools=self.toolbox.definitions(),
             )
         except LLMError as exc:
             return {"escalation_reason": f"llm_error:{type(exc).__name__}"}
@@ -130,7 +131,7 @@ class Nodes:
         blocks, records = [], []
         for call in state["pending_tool_calls"]:
             with self.tracer.span(call.name, as_type="tool", input=call.input) as span:
-                output = run_tool(call.name, call.input, state["today"])
+                output = self.toolbox.run(call.name, call.input, state["today"])
                 span.update(output=output)
             blocks.append(tool_result_block(call.id, output))
             records.append(ToolRecord(name=call.name, input=call.input, output=output))

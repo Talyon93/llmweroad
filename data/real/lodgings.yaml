@@ -1,0 +1,36 @@
+# The real CasaVaiano apartments, in Slope's order. Facts as Tommaso describes them (Italian;
+# the assistant translates). Availability comes from one Slope iCal per apartment
+# (CASA_ICAL_<NAME> in .env, never committed). Capacity: fill in when known (null = unknown).
+lodgings:
+  - name: Capanna
+    size_m2: 45
+    capacity: null
+    facts: "il più costoso ed esclusivo: indipendente, al piano terra, con terrazza, vicino al parcheggio e alla piscina"
+  - name: Girasole
+    size_m2: 50
+    capacity: null
+    facts: "l'unico con l'aria condizionata; al piano terra, con il divano letto in un soppalco e terrazza privata"
+  - name: Ginestra
+    size_m2: 55
+    capacity: null
+    facts: "al piano terra, con due bagni e terrazza privata"
+  - name: Cipresso
+    size_m2: 50
+    capacity: null
+    facts: "al piano terra, con terrazza privata"
+  - name: Castagno
+    size_m2: 50
+    capacity: null
+    facts: "l'unico attrezzato per persone con disabilità; al piano terra, con un tavolo privato davanti all'appartamento ma senza terrazza"
+  - name: Papavero
+    size_m2: 50
+    capacity: null
+    facts: "al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue"
+  - name: Ciclamino
+    size_m2: 50
+    capacity: null
+    facts: "al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue"
+  - name: Fiordaliso
+    size_m2: 50
+    capacity: null
+    facts: "al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue"

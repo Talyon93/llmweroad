@@ -40,8 +40,15 @@ Rigor:
 
 ## Real site (Rocco on the CasaVaiano website)
 
-- [ ] Real knowledge base and prices (the demo KB is fictional and names a fictional owner).
-- [ ] Availability: real calendar or disable the tool (owner confirms).
+- [x] Availability from Slope's iCal (8 apartments, cached 15 min, July-August Saturday to
+      Saturday). `AVAILABILITY_SOURCE=slope`; prices are never given (Smartpricing changes them
+      daily): the guest gets the Slope booking link or a quote request to the owner.
+- [ ] Capacity of each apartment (`capacity` in data/real/lodgings.yaml): until then Rocco
+      cannot say which apartment fits the party and hands those requests to the owner.
+- [ ] Minimum-stay restrictions set in Smartpricing are not in the iCal: Rocco may call free a
+      stay the booking engine refuses. Add the rules or mention them in the reply.
+- [ ] Real knowledge base in its own folder (`KB_DIR`); slope mode refuses to start with the
+      fictional one. Sources: the new website texts, data/real/lodgings.yaml, TommyHub.
 - [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
       SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
 - [x] SMTP configured (Gmail app password in .env) and real test emails sent: escalation + contact.

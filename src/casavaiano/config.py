@@ -35,6 +35,16 @@ class Settings(BaseSettings):
     # Fictional owner of the demo knowledge base. For the real site set OWNER_NAME to the
     # person who handles requests, or to an empty string to refer to "the family".
     owner_name: str = "Giulia"
+    # demo: fictional rooms and prices (evals, portfolio). slope: the real apartments, availability
+    # from the CASA_ICAL_* calendars, no prices (they are dynamic, see booking_url).
+    availability_source: Literal["demo", "slope"] = "demo"
+    booking_url: str = ""
+    # Knowledge base folder. Empty = the fictional demo KB (data/kb), refused in slope mode.
+    kb_dir: str = ""
+
+    @property
+    def knowledge_base_dir(self) -> Path:
+        return Path(self.kb_dir) if self.kb_dir else KB_DIR
 
     # Public mode: /chat returns only the reply and status; internals go to the owner by email.
     expose_internals: bool = True
