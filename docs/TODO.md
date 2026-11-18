@@ -44,7 +44,7 @@ Rigor:
 - [ ] Availability: real calendar or disable the tool (owner confirms).
 - [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
       SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
-- [ ] Configure SMTP credentials and send a real test email.
+- [x] SMTP configured (Gmail app password in .env) and real test emails sent: escalation + contact.
 - [ ] Chat history across turns in a session.
 - [x] CORS restricted to `ALLOWED_ORIGINS`.
 - [ ] Per-IP rate limit and spend cap.
