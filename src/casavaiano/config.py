@@ -44,7 +44,10 @@ class Settings(BaseSettings):
 
     @property
     def knowledge_base_dir(self) -> Path:
-        return Path(self.kb_dir) if self.kb_dir else KB_DIR
+        if not self.kb_dir:
+            return KB_DIR
+        path = Path(self.kb_dir)
+        return path if path.is_absolute() else ROOT_DIR / path
 
     # Public mode: /chat returns only the reply and status; internals go to the owner by email.
     expose_internals: bool = True

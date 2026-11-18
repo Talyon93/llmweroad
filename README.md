@@ -210,6 +210,17 @@ docker build -t casavaiano-assistant .
 docker run --rm -p 8080:8080 --env-file .env casavaiano-assistant
 ```
 
+Real-site mode (the 8 real apartments, availability from the Slope iCal calendars, no prices,
+knowledge base generated from the website):
+
+```bash
+uv run python scripts/import_site_kb.py --site ../CasavaianoWebsite   # after editing the site
+AVAILABILITY_SOURCE=slope KB_DIR=data/real/kb uv run uvicorn casavaiano.api.main:app --port 8000
+```
+
+The demo/eval mode (default) keeps using the fictional data in `data/kb` and `data/structured`;
+slope mode refuses to start with that fictional knowledge base.
+
 Tests and lint (no API keys needed; `-m live` runs the two real-API smoke tests):
 
 ```bash

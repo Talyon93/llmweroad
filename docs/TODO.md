@@ -47,8 +47,10 @@ Rigor:
       cannot say which apartment fits the party and hands those requests to the owner.
 - [ ] Minimum-stay restrictions set in Smartpricing are not in the iCal: Rocco may call free a
       stay the booking engine refuses. Add the rules or mention them in the reply.
-- [ ] Real knowledge base in its own folder (`KB_DIR`); slope mode refuses to start with the
-      fictional one. Sources: the new website texts, data/real/lodgings.yaml, TommyHub.
+- [x] Real knowledge base in data/real/kb (`KB_DIR=data/real/kb`): home page texts by hand,
+      apartments and nearby places generated from the website by scripts/import_site_kb.py.
+- [ ] Fill the gaps listed in data/real/DA_COMPLETARE.md (check-in, deposit, cancellation,
+      pets, minimum stay, opening period, tourist tax...): today those questions are emailed.
 - [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
       SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
 - [x] SMTP configured (Gmail app password in .env) and real test emails sent: escalation + contact.
