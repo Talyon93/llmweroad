@@ -19,6 +19,8 @@ finiscono a Tommaso via email. Ogni risposta qui sotto diventa una sezione della
 
 ## Utili
 
+- [ ] **Teli piscina**: il sito dice 5 € a persona a settimana; nelle email "10 € a telo" e
+      "a telo a settimana". Per ora Rocco usa il sito.
 - [x] Wi-Fi: Starlink, a volte instabile, meglio fuori che dentro.
 - [ ] Barbecue e spazi esterni comuni (il sistema di prenotazione cita il barbecue per Papavero e
       Fiordaliso).

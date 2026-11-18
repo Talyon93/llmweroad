@@ -21,6 +21,9 @@ il silenzio dei boschi tutt'intorno. Cotto, travi in legno, qualche mobile d'epo
 del luogo scaldano gli ambienti. Dalla collina la campagna si apre come da una terrazza
 naturale, e tra le colline si riconosce il profilo di Volterra.
 
+Solo il Girasole ha l'aria condizionata: negli altri appartamenti le spesse mura in pietra del
+podere tengono fresco, e in campagna le sere d'estate sono piacevoli, più fresche che in città.
+
 ## La tenuta
 
 Settanta ettari di campi, olivi e bosco a 450 metri d'altezza, tra Volterra e San Gimignano.
@@ -37,6 +40,8 @@ Giochi all'aperto: campo da calcio, ping-pong e un parco giochi, per i bambini m
 Piscina panoramica di sei metri per dodici, alimentata da una sorgente che sgorga dalla roccia,
 con un angolo per i bambini e la vista sulle colline. Sdraio e ombrelloni sono inclusi.
 È aperta da inizio aprile a fine ottobre, senza orari fissi: gli ospiti la usano quando vogliono.
+Non è riscaldata, quindi ad aprile e a ottobre l'acqua può essere fredda, soprattutto la mattina:
+dipende dal tempo.
 
 ## Cosa è sempre incluso
 
@@ -134,8 +139,9 @@ arriva con la spesa fatta.
 ## Mangiare
 
 Non ci sono ristorante né colazione: ogni appartamento ha una cucina attrezzata, così gli ospiti
-sono liberi di organizzarsi. Per gli ospiti ci sono tre barbecue. Ogni tanto organizziamo una
-serata pizza. Ci sono diversi ristoranti a 7-13 km, che conviene prenotare; all'arrivo diamo una
+sono liberi di organizzarsi. Per gli ospiti ci sono tre barbecue. Ogni tanto, soprattutto in alta
+stagione, organizziamo una serata pizza o una serata di cucina toscana. Non organizziamo
+degustazioni di vino, ma all'arrivo consigliamo volentieri le migliori della zona. Ci sono diversi ristoranti a 7-13 km, che conviene prenotare; all'arrivo diamo una
 mappa con i nostri consigli su ristoranti e cose da vedere.
 
 ## Feste ed eventi
