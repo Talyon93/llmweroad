@@ -194,3 +194,16 @@ def test_fifth_guest_needs_the_extra_bed():
         d("2027-05-07"), d("2027-05-10"), 6, TODAY, calendars, "", lodgings
     )
     assert six["not_available"] == ["Girasole (sleeps 5)"]
+
+
+def test_minimum_stay_outside_high_season():
+    calendars = FakeCalendars({"Girasole": set()})
+    lodgings = (Lodging("Girasole", 50, 5, "aria condizionata", standard_guests=4),)
+    short = check_availability_live(
+        d("2027-05-07"), d("2027-05-09"), 2, TODAY, calendars, "", lodgings
+    )
+    assert "minimum stay is 3 nights" in short["min_stay"]
+    ok = check_availability_live(
+        d("2027-05-07"), d("2027-05-10"), 2, TODAY, calendars, "", lodgings
+    )
+    assert "min_stay" not in ok

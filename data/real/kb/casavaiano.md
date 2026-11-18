@@ -1,7 +1,8 @@
 # CasaVaiano
 
-<!-- Written by hand from the website's home page (index.html) and PRODUCT.md, November 2026.
-Only facts stated there; anything missing goes in data/real/DA_COMPLETARE.md, not here. -->
+<!-- Written by hand from the website's home page (index.html), PRODUCT.md, Slope's booking
+conditions and Tommaso's answers (18-19 November 2026). Only facts stated there; anything
+missing goes in data/real/DA_COMPLETARE.md, not here. -->
 
 ## Chi siamo
 
@@ -34,6 +35,7 @@ Giochi all'aperto: campo da calcio, ping-pong e un parco giochi, per i bambini m
 
 Piscina panoramica di sei metri per dodici, alimentata da una sorgente che sgorga dalla roccia,
 con un angolo per i bambini e la vista sulle colline. Sdraio e ombrelloni sono inclusi.
+È aperta da inizio aprile a fine ottobre, senza orari fissi: gli ospiti la usano quando vogliono.
 
 ## Cosa è sempre incluso
 
@@ -57,8 +59,55 @@ per arrivare a 5 persone. Per gruppi più numerosi servono due appartamenti.
 
 ## Supplementi
 
-- Animali ammessi: 50 € a settimana.
+- Animali: benvenuti, 50 € una volta sola per le pulizie finali aggiuntive.
 - Teli piscina: 5 € a persona a settimana.
+
+## Animali
+
+Gli animali sono benvenuti. C'è un supplemento di 50 €, una volta sola per tutto il soggiorno
+(non a settimana), per le pulizie finali aggiuntive.
+
+## Arrivo e partenza
+
+L'arrivo (check-in) è dalle 16:00 alle 18:00. Chi arriva fuori da questi orari deve chiamare la
+struttura al +39 347 330 7459 per comunicare l'orario di arrivo previsto.
+
+La partenza (check-out) è entro le 09:00 del giorno di partenza.
+
+## Soggiorno minimo e periodo di apertura
+
+CasaVaiano è aperta da aprile a fine ottobre, e anche per Capodanno.
+
+Il soggiorno minimo è di 3 notti. A luglio e agosto si affitta solo da sabato a sabato, a
+settimane intere.
+
+## Pagamento e cancellazione
+
+Di solito si versa un anticipo al momento della prenotazione (non sempre, per esempio quando il
+soggiorno è molto vicino). Il saldo si paga alla partenza, in contanti o con carta di credito.
+Carte accettate: Visa, Mastercard, American Express, Maestro, Diners e altre.
+
+Le condizioni di prenotazione e di cancellazione sono indicate nel preventivo e nel sistema di
+prenotazione online.
+
+## Tassa di soggiorno
+
+La tassa di soggiorno del Comune di Gambassi Terme è di 1,50 € a persona a notte, dai 14 anni in
+su, per un massimo di 6 notti. Non è compresa nel prezzo. Sono esenti, tra gli altri, le persone con disabilità non
+autosufficienti.
+
+## Wi-Fi
+
+C'è il Wi-Fi via satellite (Starlink). Abbiamo cercato di renderlo il migliore possibile, ma ogni
+tanto può avere qualche problema, e di solito funziona meglio all'esterno che dentro gli
+appartamenti. Chi deve lavorare da remoto fa bene a saperlo prima.
+
+## Come arrivare e spesa
+
+L'ultimo chilometro è una strada sterrata: finora nessun ospite ha avuto problemi, e sono
+arrivati anche camper e auto sportive.
+
+Il supermercato più vicino è a Volterra: chi conosce già CasaVaiano arriva con la spesa fatta.
 
 ## Come prenotare e prezzi
 

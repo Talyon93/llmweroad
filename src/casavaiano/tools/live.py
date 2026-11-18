@@ -15,6 +15,7 @@ from casavaiano.tools.stay import _validate_dates
 LODGINGS_PATH = DATA_DIR / "real" / "lodgings.yaml"
 HIGH_SEASON_MONTHS = (7, 8)
 SATURDAY = 5
+MIN_NIGHTS = 3
 
 PRICES_NOTE = (
     "Prices change every day (dynamic pricing). Never state a price: the guest sees the live "
@@ -74,6 +75,11 @@ def check_availability_live(
     if suggestion:
         check_in, check_out = suggestion
         result["rule"] = "In July and August stays go Saturday to Saturday, whole weeks."
+    elif (check_out - check_in).days < MIN_NIGHTS:
+        result["min_stay"] = (
+            f"The minimum stay is {MIN_NIGHTS} nights: these dates cannot be booked as they are. "
+            "Ask the guest to extend the stay."
+        )
     stay = set(nights(check_in, check_out))
     result |= {
         "checked": {"check_in": str(check_in), "check_out": str(check_out), "nights": len(stay)},

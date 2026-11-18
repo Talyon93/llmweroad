@@ -28,7 +28,9 @@ def test_real_kb_chunks_and_states_no_fixed_prices():
     assert len(chunks) > 20
     text = " ".join(c.text for c in chunks)
     assert "da sabato a sabato" in text
-    assert "50 € a settimana" in text
+    assert "50 €, una volta sola" in text
+    assert "massimo di 6 notti" in text
+    assert "16:00 alle 18:00" in text
 
 
 def test_kb_dir_is_resolved_from_the_project_root():
