@@ -177,3 +177,20 @@ def test_live_escalation_drafts_never_contain_prices():
 
     assert "Never write a price" in escalate_system(Persona("Rocco", "Tommaso", live=True))
     assert "Never write a price" not in escalate_system(Persona("Rocco", "Giulia"))
+
+
+def test_fifth_guest_needs_the_extra_bed():
+    lodgings = (Lodging("Girasole", 50, 5, "aria condizionata", standard_guests=4),)
+    calendars = FakeCalendars({"Girasole": set()})
+    five = check_availability_live(
+        d("2027-05-07"), d("2027-05-10"), 5, TODAY, calendars, "", lodgings
+    )
+    assert "extra single bed" in five["available"][0]["extra_bed"]
+    four = check_availability_live(
+        d("2027-05-07"), d("2027-05-10"), 4, TODAY, calendars, "", lodgings
+    )
+    assert "extra_bed" not in four["available"][0]
+    six = check_availability_live(
+        d("2027-05-07"), d("2027-05-10"), 6, TODAY, calendars, "", lodgings
+    )
+    assert six["not_available"] == ["Girasole (sleeps 5)"]

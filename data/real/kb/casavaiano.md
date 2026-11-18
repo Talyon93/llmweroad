@@ -49,6 +49,12 @@ autonomo. Sono sempre inclusi:
 - parcheggio coperto
 - culla con biancheria
 
+## Posti letto
+
+Tutti gli appartamenti hanno un letto matrimoniale e un divano letto matrimoniale: ospitano
+fino a 4 persone. In ogni appartamento si può aggiungere un letto singolo, con un supplemento,
+per arrivare a 5 persone. Per gruppi più numerosi servono due appartamenti.
+
 ## Supplementi
 
 - Animali ammessi: 50 € a settimana.

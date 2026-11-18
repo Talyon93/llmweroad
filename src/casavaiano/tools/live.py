@@ -28,6 +28,7 @@ class Lodging:
     size_m2: int
     capacity: int | None
     facts: str
+    standard_guests: int | None = None
 
 
 @lru_cache
@@ -93,6 +94,8 @@ def check_availability_live(
             entry = {"name": lodging.name, "size_m2": lodging.size_m2, "facts": lodging.facts}
             if lodging.capacity is None:
                 entry["capacity"] = "not in the data: the owner confirms it for the party size"
+            elif lodging.standard_guests and guests > lodging.standard_guests:
+                entry["extra_bed"] = "needs the extra single bed (supplement on request)"
             result["available"].append(entry)
     result["prices"] = PRICES_NOTE
     result["booking_url"] = booking_url

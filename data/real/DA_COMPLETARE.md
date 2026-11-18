@@ -6,8 +6,8 @@ finiscono a Tommaso via email. Ogni risposta qui sotto diventa una sezione della
 
 ## Le più importanti (domande frequenti degli ospiti)
 
-- [ ] **Posti letto per appartamento**: quante persone al massimo, e se si può aggiungere un letto
-      (e quanto costa). Dal sito si vede solo "camera matrimoniale + divano letto matrimoniale".
+- [x] **Posti letto**: matrimoniale + divano letto ovunque (4 persone), + 1 letto singolo (5).
+- [ ] **Letto aggiuntivo**: 100 € per soggiorno, a settimana o a notte?
 - [ ] **Check-in e check-out**: orari, arrivi tardi, chi consegna le chiavi.
 - [ ] **Acconto e pagamenti**: quanto, come (bonifico, carta, contanti), saldo quando.
 - [ ] **Cancellazione**: fino a quando è gratuita, cosa succede dopo.
