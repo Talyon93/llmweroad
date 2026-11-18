@@ -9,6 +9,7 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from casavaiano.agent.graph import Assistant
+from casavaiano.agent.memory import ConversationStore
 from casavaiano.agent.state import CallRecord, EscalationDraft, ToolRecord
 from casavaiano.config import Settings, get_settings
 from casavaiano.llm import LLMError
@@ -67,9 +68,11 @@ def create_app(
     assistant_factory: Callable[[], Assistant] = _default_assistant,
     settings: Settings | None = None,
     notifier: Notifier | None = None,
+    conversations: ConversationStore | None = None,
 ) -> FastAPI:
     settings = settings or get_settings()
     notifier = notifier or make_notifier(settings)
+    conversations = conversations or ConversationStore()
     app = FastAPI(title="CasaVaiano guest assistant", version="0.2.0")
     origins = [o.strip() for o in settings.allowed_origins.split(",") if o.strip()]
     if origins:
@@ -109,17 +112,19 @@ def create_app(
             raise HTTPException(503, "The assistant is not configured") from exc
         message = request.message.strip()
         try:
-            result = agent.run(message, session_id=request.session_id)
+            history = conversations.history(request.session_id)
+            result = agent.run(message, session_id=request.session_id, history=history)
         except Exception as exc:
             log.exception("assistant run failed")
             raise HTTPException(500, "Something went wrong, please try again") from exc
 
+        conversations.add(request.session_id, message, result.reply)
         trace_url = get_tracer().trace_url(result.trace_id)
         escalated = result.status == "escalated"
         notified = False
         if escalated:
             subject, body = escalation_email(
-                message, result, request.session_id, request.contact, trace_url
+                message, result, request.session_id, request.contact, trace_url, history
             )
             reply_to = request.contact.email if request.contact else None
             notified = notifier.send(subject, body, reply_to=reply_to)

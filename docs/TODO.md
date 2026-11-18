@@ -54,7 +54,8 @@ Rigor:
 - [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
       SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
 - [x] SMTP configured (Gmail app password in .env) and real test emails sent: escalation + contact.
-- [ ] Chat history across turns in a session.
+- [x] Chat history per session (server-side, 6 turns, 24 h; one instance: a shared
+      store is needed if Cloud Run scales to several instances).
 - [x] CORS restricted to `ALLOWED_ORIGINS`.
 - [ ] Per-IP rate limit and spend cap.
 - [ ] Privacy notice on the site: messages go to Anthropic and Langfuse.

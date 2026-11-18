@@ -95,6 +95,7 @@ class Assistant:
         today: date | None = None,
         session_id: str | None = None,
         tags: list[str] | None = None,
+        history: list[tuple[str, str]] | None = None,
     ) -> AssistantResponse:
         started = time.perf_counter()
         metadata = {
@@ -108,7 +109,13 @@ class Assistant:
             "guest-inquiry", input=message, session_id=session_id, tags=tags, metadata=metadata
         ) as root:
             state = self.graph.invoke(
-                {"message": message, "today": today or date.today(), "calls": [], "tools": []}
+                {
+                    "message": message,
+                    "history": history or [],
+                    "today": today or date.today(),
+                    "calls": [],
+                    "tools": [],
+                }
             )
             response = _response(state, (time.perf_counter() - started) * 1000)
             response.trace_id = self.tracer.current_trace_id()

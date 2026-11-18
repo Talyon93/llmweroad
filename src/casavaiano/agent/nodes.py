@@ -49,7 +49,14 @@ class Nodes:
                     "classify",
                     route,
                     prompts.CLASSIFY_SYSTEM,
-                    [{"role": "user", "content": prompts.classify_user(state["message"])}],
+                    [
+                        {
+                            "role": "user",
+                            "content": prompts.classify_user(
+                                state["message"], state.get("history")
+                            ),
+                        }
+                    ],
                     max_tokens=2048,
                     output_schema=Classification,
                 )
@@ -96,12 +103,17 @@ class Nodes:
             return {"escalation_reason": "tool_loop_limit", "pending_tool_calls": []}
         route = answer_route(self.settings, c)
         messages = state.get("messages") or [
+            *_history_messages(state.get("history")),
             {
                 "role": "user",
                 "content": prompts.answer_user(
-                    state["message"], state["today"], c, prompts.format_context(state["chunks"])
+                    state["message"],
+                    state["today"],
+                    c,
+                    prompts.format_context(state["chunks"]),
+                    continuing=bool(state.get("history")),
                 ),
-            }
+            },
         ]
         try:
             result = self._call(
@@ -144,8 +156,10 @@ class Nodes:
         }
 
     def answer(self, state: AgentState) -> dict[str, Any]:
+        earlier_replies = [reply for _, reply in state.get("history") or []]
         sources = numbers_in_sources(
-            [c.text for c in state["chunks"]], [t.output for t in state.get("tools", [])]
+            [c.text for c in state["chunks"]] + earlier_replies,
+            [t.output for t in state.get("tools", [])],
         )
         ungrounded = ungrounded_amounts(state.get("reply", ""), sources)
         if ungrounded:
@@ -164,6 +178,7 @@ class Nodes:
             c,
             reason,
             prompts.format_context(state.get("chunks", [])),
+            state.get("history"),
         )
         try:
             result = self._call(
@@ -212,6 +227,16 @@ class Nodes:
                 name=name,
             )
         )
+
+
+def _history_messages(history: list[tuple[str, str]] | None) -> list[dict[str, Any]]:
+    """Earlier turns as alternating user/assistant messages before the current one."""
+    messages: list[dict[str, Any]] = []
+    for guest, reply in history or []:
+        content = f"<guest_message>\n{guest}\n</guest_message>"
+        messages.append({"role": "user", "content": content})
+        messages.append({"role": "assistant", "content": reply})
+    return messages
 
 
 def _record(node: str, result: LLMResult) -> CallRecord:

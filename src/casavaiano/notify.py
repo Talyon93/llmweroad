@@ -83,6 +83,7 @@ def escalation_email(
     session_id: str | None,
     contact: Contact | None,
     trace_url: str | None,
+    history: list[tuple[str, str]] | None = None,
 ) -> tuple[str, str]:
     e = response.escalation
     priority = e.priority.upper() if e else "HIGH"
@@ -102,6 +103,7 @@ def escalation_email(
             "SUMMARY",
             e.owner_summary if e else "(automatic summary not available)",
             "",
+            *_history_lines(history),
             "GUEST MESSAGE",
             message,
             "",
@@ -115,6 +117,15 @@ def escalation_email(
         ]
     )
     return subject, body
+
+
+def _history_lines(history: list[tuple[str, str]] | None) -> list[str]:
+    if not history:
+        return []
+    lines = ["EARLIER IN THIS CONVERSATION"]
+    for guest, reply in history:
+        lines += [f"Guest: {guest}", f"Rocco: {reply}", ""]
+    return lines
 
 
 def contact_email(session_id: str, contact: Contact, note: str | None) -> tuple[str, str]:

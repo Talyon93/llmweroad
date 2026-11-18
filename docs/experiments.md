@@ -187,3 +187,13 @@ Valid run (real KB, live calendars):
   three specific apartments ("all on the ground floor") as general.
 - Recurring missing points: the pool is not heated (cold water in April/October), the stone walls
   keep apartments cool, pets €50 per dog.
+
+## 2026-11-19 · Chat memory
+
+Server-side per `session_id` (a client cannot invent earlier turns). The classifier sees the
+previous conversation so "E la settimana dopo?" becomes a booking question with the right
+dates; the answer model gets the earlier turns as messages; the owner's draft and email include
+them; amounts from earlier replies count as grounded. Live check in real mode, 4 messages: the
+second turn re-checked 24-31 July on its own and compared it with the week before; the fourth
+("which of the free ones has AC?") answered Girasole for both weeks. Follow-ups no longer
+greet again (first version opened every reply with "Ciao,").

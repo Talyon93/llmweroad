@@ -71,6 +71,7 @@ class ToolRecord(BaseModel):
 
 class AgentState(TypedDict, total=False):
     message: str
+    history: list[tuple[str, str]]
     today: date
     classification: Classification
     escalation_reason: str | None

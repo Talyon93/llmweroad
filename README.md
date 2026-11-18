@@ -248,7 +248,8 @@ docs/                     experiment log, TODO
 
 ## Limitations
 
-- Single-turn: each message is answered on its own; chat history is not used yet.
+- Chat memory lives in the server process (6 turns, 24 h per session): fine for one
+  instance; several instances would need a shared store.
 - The eval set is synthetic and written by the same person who built the system; the 20-case
   test split and the hand-labelled judge calibration are the guards against overfitting to it.
 - The judge is the same model family as the strong model; deterministic checks limit, but do not

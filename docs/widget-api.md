@@ -24,7 +24,9 @@ Request:
 ```
 
 - `message`: 1 to 4000 characters.
-- `session_id`: optional but recommended; it links the owner's emails to one conversation.
+- `session_id`: generate one per browser tab and send it with every message. It gives Rocco
+  the memory of the conversation (last 6 exchanges, kept 24 hours, on the server) and links the
+  owner's emails to it. Without it, every message is answered on its own.
 - `contact`: optional; every field optional. Send it if the guest has already filled it in.
 
 Response in production (`EXPOSE_INTERNALS=false`):
@@ -68,4 +70,5 @@ The owner receives an email linked to the same conversation, with Reply-To set t
 
 - The assistant must be presented as a virtual assistant (Rocco, named after the farm's cat).
 - Link the privacy notice: messages are processed by Anthropic (LLM) and Langfuse (tracing).
-- Each message is answered on its own for now; conversation history is not used yet.
+- Follow-ups work ("and the week after?") as long as the same `session_id` is sent. Rocco
+  greets only in the first reply.
