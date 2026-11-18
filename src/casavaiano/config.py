@@ -36,6 +36,23 @@ class Settings(BaseSettings):
     # person who handles requests, or to an empty string to refer to "the family".
     owner_name: str = "Giulia"
 
+    # Public mode: /chat returns only the reply and status; internals go to the owner by email.
+    expose_internals: bool = True
+    allowed_origins: str = ""
+
+    smtp_host: str = ""
+    smtp_port: int = 465
+    smtp_user: str = ""
+    smtp_password: SecretStr | None = None
+    email_from: str = ""
+    escalation_email_to: str = ""
+
+    @property
+    def email_enabled(self) -> bool:
+        return bool(
+            self.smtp_host and self.smtp_user and self.smtp_password and self.escalation_email_to
+        )
+
     @property
     def tracing_enabled(self) -> bool:
         return bool(self.langfuse_public_key and self.langfuse_secret_key)

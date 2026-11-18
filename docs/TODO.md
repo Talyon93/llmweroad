@@ -42,10 +42,12 @@ Rigor:
 
 - [ ] Real knowledge base and prices (the demo KB is fictional and names a fictional owner).
 - [ ] Availability: real calendar or disable the tool (owner confirms).
-- [ ] Public /chat response with reply and status only; owner summary and draft delivered
-      to the owner (channel to decide), not to the browser.
+- [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
+      SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
+- [ ] Configure SMTP credentials and send a real test email.
 - [ ] Chat history across turns in a session.
-- [ ] CORS for the site domain, per-IP rate limit, spend cap.
+- [x] CORS restricted to `ALLOWED_ORIGINS`.
+- [ ] Per-IP rate limit and spend cap.
 - [ ] Privacy notice on the site: messages go to Anthropic and Langfuse.
 
 ## Later

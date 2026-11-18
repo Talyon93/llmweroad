@@ -136,7 +136,7 @@ function showDetails(r) {
       details.append(el("h2", {}, "To check"),
         el("ul", {}, ...e.missing_info.map((m) => el("li", {}, m))));
     }
-    details.append(el("p", { className: "empty" }, `Reason: ${r.escalation_reason}`));
+    details.append(el("p", { className: "empty" }, `Reason: ${r.escalation_reason} · email to ${OWNER}: ${r.owner_notified ? "sent" : "not sent (email not configured)"}`));
   }
   details.append(el("h2", {}, "LLM calls"));
   const table = el("table");
