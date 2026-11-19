@@ -197,3 +197,13 @@ them; amounts from earlier replies count as grounded. Live check in real mode, 4
 second turn re-checked 24-31 July on its own and compared it with the week before; the fourth
 ("which of the free ones has AC?") answered Girasole for both weeks. Follow-ups no longer
 greet again (first version opened every reply with "Ciao,").
+
+## 2026-11-20 · Spending protection on Google Cloud
+
+Plan was Google's documented kill switch (budget -> Pub/Sub -> Cloud Function that unlinks
+billing). Dropped before deploying it: Cloud Billing now offers native spending caps ("Budgets &
+caps"), one project and one eligible service per cap. Budget "Rocco 5 EUR": Cloud Run
+(service 152E-C115-5142) only, monthly, 5 EUR, EXCLUDE_ALL_CREDITS (so the 269 EUR welcome credit
+cannot hide usage), alerts at 50/80/100%; Cloud Run is paused at the cap and resumes at the start
+of the next month. No custom code, no billing-admin permissions, no manual re-linking.
+Rocco's own cap on LLM spend (Anthropic, not Google) is 1 USD/day.
