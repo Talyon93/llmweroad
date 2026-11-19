@@ -207,3 +207,20 @@ def test_minimum_stay_outside_high_season():
         d("2027-05-07"), d("2027-05-10"), 2, TODAY, calendars, "", lodgings
     )
     assert "min_stay" not in ok
+
+
+def test_closed_season_and_new_year():
+    calendars = FakeCalendars({"Girasole": set()})
+    lodgings = (Lodging("Girasole", 50, 5, "aria condizionata", standard_guests=4),)
+    february = check_availability_live(
+        d("2027-02-02"), d("2027-02-12"), 4, TODAY, calendars, "", lodgings
+    )
+    assert "closed" in february["closed"] and february["available"] == []
+    late_october = check_availability_live(
+        d("2027-10-28"), d("2027-11-02"), 2, TODAY, calendars, "", lodgings
+    )
+    assert "closed" in late_october
+    new_year = check_availability_live(
+        d("2026-12-30"), d("2027-01-02"), 2, TODAY, calendars, "", lodgings
+    )
+    assert "New Year" in new_year["new_year"] and "closed" not in new_year

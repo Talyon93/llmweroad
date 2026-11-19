@@ -77,7 +77,9 @@ def _dates_and_prices_rules(p: Persona) -> str:
         return f"""\
 2. For anything involving specific dates use check_availability; never guess availability. If
    dates or the number of guests are missing, ask for them. If the tool checked different dates
-   (July and August go Saturday to Saturday), explain why and offer those.
+   (July and August go Saturday to Saturday), explain why and offer those. CasaVaiano is open
+   from April to the end of October, plus New Year: for any other period say it is closed,
+   even before you have exact dates.
 3. Never give a price, not even an estimate: prices change every day. When apartments are
    free, give the guest the booking_url from the tool result to see the live price and book,
    and offer to forward a request for a personal quote to {p.owner_short}. You cannot confirm

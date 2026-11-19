@@ -333,3 +333,24 @@ of ~$0.0003.
   correct grammar. Markdown bold and headings are also stripped in code.
 Unit-tested, not yet measured on the real cases: the owner asked not to spend more credits
 without asking first.
+
+## 2026-11-20 · Cheaper routing, measured on the 41 answerable real cases
+
+Same 41 cases (labels answer or either), compared with the two baseline runs:
+
+| | Baseline r1 / r2 | Cheaper routing |
+|---|---|---|
+| Right behaviour | 87.8% / 90.2% | **100%** |
+| Answered | 32 | 38 |
+| Consistent with the owner | 14 | 16 |
+| Contradicting the owner | 4-5 | 7 |
+| $ per message | $0.0185 | **$0.0072 (-61%)** |
+| Latency p50 / p95 | 7.7 s / 12.0 s | **3.8 s / 9.8 s** |
+
+Run cost $0.79. Of the 7 contradictions, 5 are older owner emails against the KB he approved
+since (towels per week, June Saturday rule) or judge readings; one is an inference ("€50 for pets
+is not per dog": the KB does not say). One was a real error: "early February for four people"
+got "we'd be happy to host you"; February is closed. Haiku asked for exact dates instead of
+reading the opening period. Fixes: the live availability tool now reports closed dates outside
+April-October (New Year handed to the owner), and the answer prompt states the opening period.
+Re-check of that case: "CasaVaiano is closed in February". Deployed.

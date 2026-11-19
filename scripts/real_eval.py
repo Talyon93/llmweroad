@@ -139,9 +139,11 @@ def build(extract_path: str, n: int, max_per_topic: int, since: str, seed: int =
     print(f"{len(cases)} cases, topics {dict(per_topic)}, ${sum(c['cost'] for c in cases):.4f}")
 
 
-def run(label: str, overrides: dict) -> None:
+def run(label: str, overrides: dict, expected_in: set[str] | None = None) -> None:
     cases = [json.loads(line) for line in CASES.read_text(encoding="utf-8").splitlines()]
     expected = _labels()
+    if expected_in:
+        cases = [c for c in cases if expected.get(c["id"], "either") in expected_in]
     base = get_settings()
     settings = base.model_copy(
         update={
@@ -314,6 +316,7 @@ def main() -> None:
     r.add_argument("--no-routing", action="store_true")
     r.add_argument("--chunking", choices=["headings", "fixed"])
     r.add_argument("--retrieval-query", choices=["original", "rewritten", "both"])
+    r.add_argument("--expected", help="only cases with these labels, e.g. answer,either")
     args = parser.parse_args()
     if args.cmd == "build":
         build(args.extract, args.n, args.max_per_topic, args.since)
@@ -328,7 +331,7 @@ def main() -> None:
         overrides["chunking_strategy"] = args.chunking
     if args.retrieval_query:
         overrides["retrieval_query"] = args.retrieval_query
-    run(args.label, overrides)
+    run(args.label, overrides, set(args.expected.split(",")) if args.expected else None)
 
 
 if __name__ == "__main__":

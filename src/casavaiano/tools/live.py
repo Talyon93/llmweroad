@@ -60,6 +60,21 @@ def saturday_stay(check_in: date, check_out: date) -> tuple[date, date] | None:
     return start, start + timedelta(days=7 * weeks)
 
 
+OPEN_MONTHS = range(4, 11)  # April to the end of October (real KB, "Soggiorno minimo e apertura")
+CLOSED_NOTE = (
+    "CasaVaiano is closed on these dates: it is open from April to the end of October, plus "
+    "New Year. Tell the guest and do not offer these dates."
+)
+NEW_YEAR_NOTE = (
+    "Around New Year the farm opens only for New Year: these dates are not bookable online; "
+    "offer to forward the request to the owner."
+)
+
+
+def _new_year(night: date) -> bool:
+    return (night.month == 12 and night.day >= 27) or (night.month == 1 and night.day <= 2)
+
+
 def check_availability_live(
     check_in: date,
     check_out: date,
@@ -82,6 +97,13 @@ def check_availability_live(
             "Ask the guest to extend the stay."
         )
     stay = set(nights(check_in, check_out))
+    off_season = [n for n in stay if n.month not in OPEN_MONTHS]
+    if off_season:
+        if all(_new_year(n) for n in off_season):
+            result["new_year"] = NEW_YEAR_NOTE
+        else:
+            result |= {"closed": CLOSED_NOTE, "available": [], "booking_url": booking_url}
+            return result
     result |= {
         "checked": {"check_in": str(check_in), "check_out": str(check_out), "nights": len(stay)},
         "available": [],
