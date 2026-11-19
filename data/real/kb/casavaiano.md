@@ -67,7 +67,7 @@ fino a 4 persone. In ogni appartamento si può aggiungere un letto singolo, con 
 
 - Letto singolo aggiuntivo: 100 € per il soggiorno.
 - Animali: 50 € una volta sola per le pulizie e la sanificazione finali.
-- Teli piscina: 5 € a persona a settimana.
+- Teli piscina: 10 € a telo.
 
 ## Animali
 
@@ -131,6 +131,12 @@ L'auto è consigliata, sia per arrivare sia per girare la zona, che è collinare
 Dall'aeroporto di Pisa ci vuole circa un'ora e mezza, in parte in superstrada e in parte su strade
 di collina; in aeroporto ci sono le principali società di noleggio auto.
 
+## Senza auto: treno, stazione, taxi, transfer
+
+Senza auto è difficile sia arrivare a CasaVaiano sia girare la zona: l'auto è indispensabile.
+Consigliamo di noleggiarla all'aeroporto di Pisa o a Firenze. Per esigenze particolari, come un
+transfer, scriveteci e vediamo insieme.
+
 ## Spesa e supermercato
 
 Il supermercato più vicino è a Volterra, a circa 15 minuti d'auto: chi conosce già CasaVaiano
@@ -140,9 +146,19 @@ arriva con la spesa fatta.
 
 Non ci sono ristorante né colazione: ogni appartamento ha una cucina attrezzata, così gli ospiti
 sono liberi di organizzarsi. Per gli ospiti ci sono tre barbecue. Ogni tanto, soprattutto in alta
-stagione, organizziamo una serata pizza o una serata di cucina toscana. Non organizziamo
+stagione e a nostra discrezione, organizziamo una serata pizza o pasta. Non organizziamo
 degustazioni di vino, ma all'arrivo consigliamo volentieri le migliori della zona. Ci sono diversi ristoranti a 7-13 km, che conviene prenotare; all'arrivo diamo una
 mappa con i nostri consigli su ristoranti e cose da vedere.
+
+## I nostri prodotti: olio e vino
+
+Produciamo un olio extravergine di oliva biologico, e agli ospiti proponiamo i vini della nostra
+cantina di fiducia. Per acquistarli chiedete a noi durante il soggiorno.
+
+## Regole della casa: fumo e barbecue
+
+Negli appartamenti non si fuma; all'aperto sì, anche sulle terrazze e in giardino. I tre barbecue sono a disposizione degli ospiti,
+senza prenotazione.
 
 ## Feste ed eventi
 

@@ -19,20 +19,19 @@ finiscono a Tommaso via email. Ogni risposta qui sotto diventa una sezione della
 
 ## Utili
 
-- [ ] **Teli piscina**: il sito dice 5 € a persona a settimana; nelle email "10 € a telo" e
-      "a telo a settimana". Per ora Rocco usa il sito.
+- [x] **Teli piscina**: 10 € a telo (deciso da Tommaso 2026-11-20; il sito dice ancora 5 € a
+      persona a settimana, da correggere).
 - [x] Wi-Fi: Starlink, a volte instabile, meglio fuori che dentro.
-- [ ] Barbecue e spazi esterni comuni (il sistema di prenotazione cita il barbecue per Papavero e
-      Fiordaliso).
+- [x] Barbecue: tre, liberi, senza prenotazione.
 - [x] Piscina: da inizio aprile a fine ottobre, nessun orario.
 - [x] Strada: 1 km sterrato, nessun problema (anche camper).
 - [x] Come arrivare: Pisa ~1h30, auto consigliata, mappa via email.
-- [ ] Stazioni ferroviarie e transfer.
+- [x] Senza auto: auto indispensabile, noleggio a Pisa o Firenze; transfer su richiesta a Tommaso.
 - [x] Spesa: supermercato più vicino a Volterra.
 - [x] Mangiare: niente ristorante né colazione, 3 barbecue, serata pizza ogni tanto.
-- [ ] Nomi dei ristoranti consigliati (oggi: mappa data all'arrivo).
+- [x] Ristoranti: niente nomi, mappa e consigli all'arrivo.
 - [x] Bambini: culla inclusa su richiesta, divano letto adatto.
 - [x] Eventi: niente matrimoni né eventi privati; feste di famiglia sì. (il sito dice "ogni tanto organizziamo
       una festa")
-- [ ] Fumo, regole della casa.
-- [ ] Prodotti della tenuta (olio, fichi, noci: una recensione cita "fichi e noci da raccogliere").
+- [x] Fumo: vietato negli appartamenti, permesso all'aperto.
+- [x] Prodotti: olio extravergine biologico nostro, vini di una cantina di fiducia.

@@ -218,3 +218,17 @@ Fix: floors in data/real/lodgings.yaml, a generated "Al piano terra: ..." line i
 retrieval now always adds the intro ("Overview") chunk of every document it retrieved from.
 Re-test: "Gli alloggi al piano terra sono cinque: Capanna, Girasole, Ginestra, Cipresso e
 Castagno". (The date check was right: 27 July 2027 is a Tuesday.)
+
+## 2026-11-20 · Last KB gaps, and a false "I passed it on"
+
+The owner answered the open items: pool towels €10 each (the site still says €5 per person per
+week, to fix there), the car is essential (rent at Pisa or Florence, transfers on request), no
+smoking indoors, barbecues free without booking, own organic olive oil and wines from a trusted
+cellar, pizza or pasta evenings now and then. Retrieval ranks each new section 1st or 2nd.
+
+Live check found a prompt bug: for an uncovered side question ("can we smoke on the terrace?",
+before the KB said "terraces") Haiku wrote "I passed your question to Tommaso" and answered
+without escalating, so nobody would have read it. Rule 1 told it to "say you will check with the
+owner", a promise only escalate_to_owner can keep. Now: say the detail is missing and the owner
+can answer it; never claim a hand-off without calling the tool; never mention "the context".
+The train answer also stopped saying "the context I have doesn't name a station".
