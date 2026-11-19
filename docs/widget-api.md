@@ -1,6 +1,6 @@
 # Rocco API for the website chat widget
 
-Base URL: the Cloud Run service URL (to be published). The site's domain must be listed in
+Base URL: `https://rocco-966891647846.europe-west8.run.app` (Cloud Run, Milan). The site's domain must be listed in
 `ALLOWED_ORIGINS`, otherwise the browser blocks the calls (CORS).
 
 Origins to allow in production:

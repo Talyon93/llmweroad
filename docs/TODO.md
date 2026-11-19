@@ -63,6 +63,6 @@ Rigor:
 
 ## Later
 
-- [ ] M9 (optional): deploy on GCP Cloud Run with Secret Manager and a rate limit.
+- [x] M9: deployed on Cloud Run (europe-west8), see docs/deploy.md.
 - [ ] Replace the fictional knowledge base in `data/` with the real CasaVaiano information and
       re-run the evals.

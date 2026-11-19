@@ -1,0 +1,13 @@
+# Files never sent to Cloud Build (secrets and local state stay on this PC)
+.env
+.venv/
+.cache/
+.chroma/
+.git/
+.claude/
+.pytest_cache/
+.ruff_cache/
+**/__pycache__/
+tests/
+docs/
+evals/
