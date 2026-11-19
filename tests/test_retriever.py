@@ -63,3 +63,10 @@ def test_named_sections_are_found_by_title(retriever):
     assert {c.sections[0] for c in found} >= {"Pets", "Swimming pool"}
     assert all(c.score == 1.0 for c in found)
     assert retriever.named("nothing relevant here") == []
+
+
+def test_overviews_of_retrieved_documents(retriever):
+    intros = retriever.overviews({"rooms", "faq"})
+    assert {c.source for c in intros} == {"rooms"}  # faq.md has no intro text
+    assert all(c.sections == ("Overview",) for c in intros)
+    assert retriever.overviews(set()) == []

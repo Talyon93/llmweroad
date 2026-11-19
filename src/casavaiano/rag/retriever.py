@@ -111,6 +111,18 @@ class Retriever:
                 )
         return found[:MAX_NAMED]
 
+    def overviews(self, sources: set[str]) -> list[RetrievedChunk]:
+        """The intro ("Overview") chunk of each document already retrieved from. Intros carry the
+        lists that single cards cannot ("ground floor: A, B, C, D, E"), and embeddings rank the
+        cards higher than the list."""
+        if self._chunks is None:
+            self._chunks = chunk_kb(self.strategy, self.kb_dir)
+        return [
+            RetrievedChunk(c.id, c.text, c.source, c.sections, score=1.0)
+            for c in self._chunks
+            if c.source in sources and c.sections[0] == "Overview"
+        ]
+
     def _build(self, fingerprint: str):
         chunks: list[Chunk] = chunk_kb(self.strategy, self.kb_dir)
         collection = self._client.create_collection(

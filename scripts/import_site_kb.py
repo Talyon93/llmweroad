@@ -48,6 +48,7 @@ def apartments_md(apartments: list[dict]) -> str:
         "CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna). "
         f"Sono: {', '.join(a['name'] for a in apartments)}.",
         "",
+        *_by_floor(),
     ]
     for a in apartments:
         parts += [
@@ -65,6 +66,17 @@ def apartments_md(apartments: list[dict]) -> str:
             parts += ["", f"Note dei gestori: {notes[a['name']]}."]
         parts.append("")
     return "\n".join(parts)
+
+
+def _by_floor() -> list[str]:
+    """One line per floor with every apartment on it: questions like "ground floor?" need the
+    complete list in one chunk, not one apartment card per chunk."""
+    floors: dict[str, list[str]] = {}
+    for lodging in load_lodgings():
+        if lodging.floor:
+            floors.setdefault(lodging.floor, []).append(lodging.name)
+    lines = [f"Al {floor}: {', '.join(names)}." for floor, names in floors.items()]
+    return [*lines, ""] if lines else []
 
 
 def places_md(places: list[dict]) -> str:

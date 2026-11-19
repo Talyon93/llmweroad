@@ -3,6 +3,9 @@
 
 CasaVaiano ha otto alloggi: sette appartamenti e una casetta indipendente (Capanna). Sono: Capanna, Girasole, Ginestra, Cipresso, Castagno, Ciclamino, Papavero, Fiordaliso.
 
+Al piano terra: Capanna, Girasole, Ginestra, Cipresso, Castagno.
+Al primo piano: Papavero, Ciclamino, Fiordaliso.
+
 ## Capanna
 
 Appartamento Indipendente, 45 m². Una casa a sé, con il suo giardino e la sua veranda.

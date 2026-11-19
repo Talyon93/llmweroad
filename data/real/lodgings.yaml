@@ -4,41 +4,49 @@
 # sofa bed (4 people) and can take one extra single bed (5 people), confirmed by Tommaso 2026-11-18.
 lodgings:
   - name: Capanna
+    floor: piano terra
     size_m2: 45
     capacity: 5
     standard_guests: 4
     facts: "il più costoso ed esclusivo: indipendente, al piano terra, con terrazza, vicino al parcheggio e alla piscina"
   - name: Girasole
+    floor: piano terra
     size_m2: 50
     capacity: 5
     standard_guests: 4
     facts: "l'unico con l'aria condizionata; al piano terra, con il divano letto in un soppalco e terrazza privata"
   - name: Ginestra
+    floor: piano terra
     size_m2: 55
     capacity: 5
     standard_guests: 4
     facts: "al piano terra, con due bagni e terrazza privata"
   - name: Cipresso
+    floor: piano terra
     size_m2: 50
     capacity: 5
     standard_guests: 4
     facts: "al piano terra, con terrazza privata"
   - name: Castagno
+    floor: piano terra
     size_m2: 50
     capacity: 5
     standard_guests: 4
     facts: "l'unico attrezzato per persone con disabilità; al piano terra, con un tavolo privato davanti all'appartamento ma senza terrazza"
   - name: Papavero
+    floor: primo piano
     size_m2: 50
     capacity: 5
     standard_guests: 4
     facts: "al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue"
   - name: Ciclamino
+    floor: primo piano
     size_m2: 50
     capacity: 5
     standard_guests: 4
     facts: "al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue"
   - name: Fiordaliso
+    floor: primo piano
     size_m2: 50
     capacity: 5
     standard_guests: 4

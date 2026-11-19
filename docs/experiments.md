@@ -207,3 +207,14 @@ caps"), one project and one eligible service per cap. Budget "Rocco 5 EUR": Clou
 cannot hide usage), alerts at 50/80/100%; Cloud Run is paused at the cap and resumes at the start
 of the next month. No custom code, no billing-admin permissions, no manual re-linking.
 Rocco's own cap on LLM spend (Anthropic, not Google) is 1 USD/day.
+
+## 2026-11-20 · First live bug from the website widget
+
+Guest: "un appartamento al piano terra dal 27 luglio...". Rocco listed 3 ground-floor apartments;
+there are 5. Each apartment is its own chunk and no chunk listed them by floor, so the answer
+depended on which cards retrieval happened to return. Adding a per-floor list to the apartments
+intro was not enough: embeddings ranked the single cards above the list (intro not in top 6).
+Fix: floors in data/real/lodgings.yaml, a generated "Al piano terra: ..." line in the intro, and
+retrieval now always adds the intro ("Overview") chunk of every document it retrieved from.
+Re-test: "Gli alloggi al piano terra sono cinque: Capanna, Girasole, Ginestra, Cipresso e
+Castagno". (The date check was right: 27 July 2027 is a Tuesday.)

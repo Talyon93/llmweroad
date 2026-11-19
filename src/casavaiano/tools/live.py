@@ -30,6 +30,7 @@ class Lodging:
     capacity: int | None
     facts: str
     standard_guests: int | None = None
+    floor: str | None = None
 
 
 @lru_cache
