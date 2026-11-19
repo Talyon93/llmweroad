@@ -299,3 +299,22 @@ After the towel fix (KB) and on the same 70 labelled cases. Each configuration r
 
 Production configuration unchanged: routing with headings chunking. Cost of these six runs
 $14.8; the M6 total so far $17.
+
+## 2026-11-20 · Fixing the 6 cases that failed in every run
+
+Two new classifier fields and live-mode guard rules, in code:
+- `private_event` (wedding, reception, private or corporate event): in live mode the guard lets
+  it through and Rocco declines from the KB ("we don't host weddings or private events"), as the
+  owner asked. Risk flags, complaints and booking changes still escalate. Demo mode unchanged.
+- `units_requested` (apartments, or families travelling together): three or more go to the
+  owner. "Five families" carries no head count, so `group_size` never fired.
+
+Targeted check on the 10 affected real cases ($0.24): 9 right. Weddings (3) answered with a polite
+no, "five families" and "three apartments" handed over (`units:5`, `units:3`), two families in
+two apartments answered, the 14-person birthday still handed over. Still wrong: the cooking
+question (the KB mentions pizza and pasta evenings but not cooking with the staff, so the model
+hands over).
+
+Also: the server now loads the embedding model, index and chunks at startup. In production the
+first message after a restart spent ~9 s in `retrieve` (Langfuse traces: 9.0 s, 9.6 s, 7.8 s,
+then 0.03 s).

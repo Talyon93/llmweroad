@@ -41,6 +41,15 @@ class Classification(BaseModel):
     confidence: float = Field(description="0 to 1: how sure you are about the intent")
     risk_flags: list[RiskFlag]
     group_size: int | None = Field(description="Number of people mentioned, if any")
+    units_requested: int | None = Field(
+        default=None,
+        description="Number of apartments, or of separate families or households travelling "
+        "together, if the guest states or implies it",
+    )
+    private_event: bool = Field(
+        default=False,
+        description="Asks to host a wedding, reception or private/corporate event at the property",
+    )
     search_query: str = Field(
         description="Short English search query for the knowledge base, covering every question"
     )

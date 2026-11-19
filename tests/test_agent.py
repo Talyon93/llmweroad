@@ -311,3 +311,24 @@ def test_english_signature_is_localized():
     assert localize_signature(reply, "it", p).endswith("Rocco, l'assistente virtuale di CasaVaiano")
     assert localize_signature(reply, "en", p) == reply
     assert localize_signature(reply, "fr", p) == reply
+
+
+@pytest.mark.parametrize(
+    ("overrides", "reason"),
+    [
+        ({"intent": "events", "private_event": True, "group_size": 40}, None),
+        ({"intent": "events", "private_event": True, "risk_flags": ["abusive"]}, "risk:abusive"),
+        ({"intent": "events", "group_size": 14}, "intent:events"),
+        ({"intent": "booking", "units_requested": 3}, "units:3"),
+        ({"intent": "booking", "units_requested": 2}, None),
+        ({"intent": "complaint", "private_event": True}, "intent:complaint"),
+    ],
+)
+def test_live_guards(overrides, reason):
+    assert escalation_reason(classification(**overrides), live=True) == reason
+
+
+def test_demo_guards_ignore_live_rules():
+    wedding = classification(intent="events", private_event=True)
+    assert escalation_reason(wedding) == "intent:events"
+    assert escalation_reason(classification(units_requested=5)) is None

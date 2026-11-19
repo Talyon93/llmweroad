@@ -87,7 +87,14 @@ class Assistant:
             raise ValueError(
                 f"Retriever reads {retriever.kb_dir} but the settings say {expected_kb}"
             )
+        self.retriever = retriever
         self.graph = build_graph(Nodes(llm, retriever, self.settings, self.tracer))
+
+    def warm_up(self) -> None:
+        """Load the embedding model, index and chunks now, not on the first guest's message
+        (that took ~9 s on Cloud Run)."""
+        self.retriever.search("warm up", 1)
+        self.retriever.overviews(set())
 
     def run(
         self,

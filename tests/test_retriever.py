@@ -70,3 +70,14 @@ def test_overviews_of_retrieved_documents(retriever):
     assert {c.source for c in intros} == {"rooms"}  # faq.md has no intro text
     assert all(c.sections == ("Overview",) for c in intros)
     assert retriever.overviews(set()) == []
+
+
+def test_assistant_warm_up_loads_retriever(retriever):
+    from casavaiano.agent.graph import Assistant
+    from casavaiano.config import Settings
+    from casavaiano.llm.fake import FakeLLM
+
+    settings = Settings(_env_file=None, kb_dir=str(retriever.kb_dir))
+    assistant = Assistant(FakeLLM([]), retriever=retriever, settings=settings)
+    assistant.warm_up()
+    assert retriever._collection is not None and retriever._chunks is not None

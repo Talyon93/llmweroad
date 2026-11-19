@@ -73,7 +73,7 @@ class Nodes:
     def guard(self, state: AgentState) -> dict[str, Any]:
         if state.get("escalation_reason"):
             return {}
-        return {"escalation_reason": escalation_reason(state["classification"])}
+        return {"escalation_reason": escalation_reason(state["classification"], self.persona.live)}
 
     def retrieve(self, state: AgentState) -> dict[str, Any]:
         c = state["classification"]

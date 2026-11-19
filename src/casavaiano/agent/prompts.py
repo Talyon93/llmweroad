@@ -34,6 +34,10 @@ Risk flags (set every one that applies, otherwise an empty list):
 
 confidence: below 0.6 only if the message is truly ambiguous or you cannot tell what is asked.
 group_size: total number of people mentioned (adults plus children), or null.
+units_requested: apartments asked for, or separate families/households travelling together
+("three apartments" = 3, "five families" = 5, "two families in two apartments" = 2), or null.
+private_event: true if the guest wants the property to host a wedding, reception, or a private
+or corporate event; false for a family birthday or celebration during an ordinary stay.
 search_query: a short English query that covers every question in the message, using the
 vocabulary of a hotel website (e.g. "tourist tax", "airport transfer", "dogs allowed").
 If a previous conversation is given, classify the latest guest message in its context ("and

@@ -1,6 +1,7 @@
 import logging
 import threading
 from collections.abc import Callable
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
@@ -79,7 +80,14 @@ def create_app(
     )
     contact_limiter = RateLimiter([(settings.contact_limit_per_hour, 3600)])
     budget = DailyBudget(settings.daily_budget_usd)
-    app = FastAPI(title="CasaVaiano guest assistant", version="0.2.0")
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        if assistant_factory is _default_assistant:
+            assistant().warm_up()
+        yield
+
+    app = FastAPI(title="CasaVaiano guest assistant", version="0.2.0", lifespan=lifespan)
     origins = [o.strip() for o in settings.allowed_origins.split(",") if o.strip()]
     if origins:
         app.add_middleware(
