@@ -21,8 +21,14 @@ Owner rules that change today's behaviour (expect failures in the baseline):
 virtual-assistant signature, configurable owner name), so 88.7% is no longer the current agent.
 
 Required comparisons:
-- [ ] Strong model only vs routing (`--no-routing`): quality delta vs cost and latency.
-- [ ] Chunking headings vs fixed, end to end (`--chunking fixed`).
+- [x] Strong model only vs routing: routing wins (same behaviour, -25% cost), real eval 2026-11-20.
+- [x] Chunking headings vs fixed, end to end: headings wins, real eval 2026-11-20.
+
+Next, from the comparisons (the same 6 cases fail in every run):
+- [ ] Weddings and private events: answer "no" in live mode instead of escalating.
+- [ ] Groups without a head count ("five families", "three apartments"): count apartments or
+      families, hand over from three apartments.
+- [ ] Cooking-evenings question escalated although the KB covers it.
 
 Extra experiments, from findings in `docs/experiments.md`:
 - [ ] Retrieval query: original vs rewritten vs both (`--retrieval-query`).
@@ -37,7 +43,7 @@ Extra experiments, from findings in `docs/experiments.md`:
 - [ ] Haiku for simple bookings with tools (booking answers on Opus cost ~150x an FAQ).
 
 Rigor:
-- [ ] Repeat one configuration twice to measure run-to-run noise.
+- [x] Repeat each configuration twice: up to 2 of 70 outcomes flip.
 - [ ] Iterate on the dev split only; run the final configurations once on the test split.
 - [ ] Log every result, including what did not work, in `docs/experiments.md`.
 - [ ] Update the README results tables (README rewritten around Rocco live on 2026-11-20).

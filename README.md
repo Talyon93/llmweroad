@@ -31,24 +31,35 @@ retriever that reads a different KB from its settings: both guards came from rea
 
 ## Results
 
-### Real guest questions (live mode, 30 cases)
+### Real guest questions (live mode, 70 cases): the primary measure
 
-30 replies the owner sent to guests (Jun 2025 - Nov 2026), across 15 topics. Each guest's
-questions were rewritten as a new message without names or dates; Rocco answered in live mode;
-an Opus judge compared Rocco's reply with the facts in the owner's real reply.
+70 replies the owner sent to guests (Jan 2025 - Nov 2026), across 17 topics. Each guest's
+questions were rewritten as a new message without names or dates. Each case is labelled with the
+expected behaviour: answer it (34), hand it to the owner (29), either (7); the owner set the
+rules for the doubtful ones (weddings: answer "no"; three or more apartments: hand over; any
+discount request: hand over). Rocco answers in live mode; an Opus judge compares each answer with
+the facts in the owner's real reply. Cases stay local (git-ignored); every configuration ran
+twice, because repeating a run flips up to 2 outcomes.
 
-| Outcome | Cases |
-|---|---|
-| Consistent with the owner | 6 |
-| Consistent but missing points | 8 |
-| Contradicts the owner | 3 |
-| Handed to the owner | 13 |
+| Configuration | Right behaviour | Escalation precision / recall | Answers consistent with the owner | $ per message | p50 latency |
+|---|---|---|---|---|---|
+| **Routing (Haiku + Opus), `##` chunks: production** | **88.6% / 90.0%** | 84-87% / 90% | **14 of 35** | **$0.0195** | 7.6 s |
+| Opus only | 87.1% / 87.1% | 79% / 93% | 12-13 of 33 | $0.026 (+33%) | 8.6 s |
+| Fixed 150-word chunks | 87.1% / 87.1% | 79% / 93% | 10-11 of 30-31 | $0.030 (+54%) | 8.1 s |
 
-No invented facts reached a guest-facing reply. About 9 of the 13 hand-offs genuinely need a
-human (existing bookings, penalties, weddings, renting the whole property); the rest were topics
-missing from the KB. Of the 3 contradictions, one was a real retrieval bug (fixed, see below),
-one a website-vs-owner inconsistency, one a judge misreading. Missing points became new KB facts
-once the owner approved them. Cost: $0.89 per run.
+- **Routing is not a quality trade-off here.** Opus everywhere hands more messages over and
+  answers no better, for a third more cost. Routing already sends bookings, multi-intent
+  messages and escalation drafts to Opus; Haiku takes the simple questions.
+- **Section chunks beat fixed chunks** end to end, as in the retrieval-only test: fewer
+  needless hand-overs, more answers matching the owner, cheaper.
+- **The same 6 cases fail in every run**, so they are rules, not chance: weddings (the guard
+  hands over every event, the owner wants a polite "no") and groups that never state a head
+  count ("five families"). Next: fix those rules and measure again.
+- Most "contradictions" are the owner's older emails disagreeing with the KB he approved later
+  (check-in times, Saturday rules); the real ones led to KB fixes. No invented prices.
+
+Run cost: about $2.10 (routing) to $2.80 per run, judge included. Details and every failure in
+[docs/experiments.md](docs/experiments.md).
 
 ### Synthetic eval set (demo mode, dev split, 62 cases)
 
@@ -64,10 +75,10 @@ once the owner approved them. Cost: $0.89 per run.
 | Cost per query | **$0.0085** |
 
 Run: `evals/results/20261117-230359_routing-baseline-v2judge.json`; every failure is listed with
-the judge's reasoning in the matching `.md` report. The answer prompt has changed since (persona,
-chat memory), so this baseline is re-run first in the next round of experiments, followed by
-strong-model-only vs routing and the two chunking strategies end to end
-([docs/TODO.md](docs/TODO.md)). The retrieval-only chunking comparison is below.
+the judge's reasoning in the matching `.md` report. Measured before the Rocco persona and chat
+memory; the synthetic set is now the safety check (prompt injection, complaints, refunds,
+safety), while the comparisons above use the real questions. The retrieval-only chunking
+comparison is below.
 
 ## Architecture
 

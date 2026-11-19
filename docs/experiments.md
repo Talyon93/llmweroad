@@ -269,3 +269,33 @@ Run cost $2.18 (Rocco $1.46, judge $0.72).
   said only "€10 per towel" (the owner confirmed: for the whole stay, now in the KB). (3) Three emails say June is Saturday-to-Saturday too, the KB says
   July and August only. The owner confirmed July and August only (2026-11-20): the KB is right,
   those three are old emails, not Rocco errors.
+
+## 2026-11-20 · M6 comparisons on the real questions (2 runs each)
+
+After the towel fix (KB) and on the same 70 labelled cases. Each configuration ran twice.
+
+| Configuration | Right behaviour | Escalation P / R | Answered: consistent / contradicts | $ per message | p50 / p95 |
+|---|---|---|---|---|---|
+| **Routing + headings (production)** | **88.6% / 90.0%** | 84-87% / 90% | **14 / 6-7** of 35 | **$0.0195** | 7.6 s / 12.8 s |
+| Strong model only (Opus) | 87.1% / 87.1% | 79% / 93% | 12-13 / 5-6 of 33 | $0.026 (+33%) | 8.6 s / 13.4 s |
+| Fixed 150-word chunks | 87.1% / 87.1% | 79% / 93% | 10-11 / 4-6 of 30-31 | $0.030 (+54%) | 8.1 s / 13.5 s |
+
+- **Noise:** repeating a configuration flipped 0-2 behaviour outcomes (up to 3 points). The
+  behaviour differences between configurations (1.5-3 points) are inside that noise; cost and
+  the number of answers consistent with the owner are not.
+- **Opus everywhere buys nothing here.** Same or slightly lower right behaviour, more hand-overs
+  (precision 79% vs 85%), fewer answers consistent with the owner, 33% more expensive and a
+  second slower. It costs only a third more because routing already sends bookings, multi-intent
+  messages and escalation drafts to Opus: Haiku answers the simple questions, which are cheap
+  either way.
+- **Fixed chunks lose.** More hand-overs (the answer model finds less and escalates), fewer
+  consistent answers, 54% more expensive (more escalation drafts on Opus, longer chunks).
+  Consistent with the retrieval-only comparison (Italian hit@1 0.90 vs 0.60).
+- **The same 6 cases fail in all 6 runs**, so they are rules, not chance: 3 weddings (the guard
+  escalates every event; the owner wants a polite "no"), the cooking-evenings question, and two
+  groups that never state a head count ("five families", "three apartments"), so the group
+  guard (more than 6 people) never fires. Fixing these is the next experiment, worth up to
+  8 points.
+
+Production configuration unchanged: routing with headings chunking. Cost of these six runs
+$14.8; the M6 total so far $17.
