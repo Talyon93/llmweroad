@@ -8,9 +8,9 @@ Al primo piano: Papavero, Ciclamino, Fiordaliso.
 
 ## Capanna
 
-Appartamento Indipendente, 45 m². Una casa a sé, con il suo giardino e la sua veranda.
+Casetta indipendente, 45 m². Una casa a sé, con il suo giardino e la sua veranda.
 
-Situato al pianterreno, ha un’ampia veranda con vista panoramica su Volterra e un piccolo giardino privato. La chiamiamo così perché appare come una casetta a sé stante, romantica e accogliente.
+È al piano terra e ha un’ampia veranda con vista su Volterra e un piccolo giardino privato. La chiamiamo Capanna perché sembra una casetta a sé, romantica e accogliente.
 
 Stanze: Camera matrimoniale; Cucina-soggiorno con divano letto matrimoniale; Bagno con doccia.
 
@@ -32,7 +32,7 @@ Note dei gestori: l'unico con l'aria condizionata; al piano terra, con il divano
 
 ## Ginestra
 
-Ingresso indipendente, 55 m². Il più spazioso, con due bagni e l'ingresso tutto vostro.
+Ingresso indipendente, 55 m². Il più spazioso, con due bagni e l’ingresso tutto vostro.
 
 Una particolare struttura in muratura lo rende molto caratteristico. Ingresso indipendente, due bagni e uno spazio esterno privato.
 
@@ -74,7 +74,7 @@ Al primo piano, è uno dei più luminosi: dalle ampie finestre si godono il pano
 
 Stanze: Cucina-soggiorno con divano letto matrimoniale; Camera matrimoniale; Bagno con doccia.
 
-Caratteristiche: Molto luminoso, Vista campagne toscane, Panoramico.
+Caratteristiche: Molto luminoso, Vista sulla campagna, Panoramico.
 
 Note dei gestori: al primo piano, con un tavolo nella terrazza in comune vicino alla piscina e al barbecue.
 
@@ -94,7 +94,7 @@ Note dei gestori: al primo piano, con un tavolo nella terrazza in comune vicino 
 
 Primo piano, 50 m². Accogliente, al primo piano, con la piscina in vista.
 
-Un appartamento accogliente al primo piano: a maggio e giugno si viene inondati dai colori delle ginestre in fiore che illuminano la proprietà. Su richiesta, un tavolo con ombrellone privato in uno spazio comune.
+Un appartamento accogliente al primo piano: a maggio e giugno si viene inondati dai colori delle ginestre in fiore che illuminano la proprietà. Su richiesta, un tavolo privato con ombrellone in uno spazio comune.
 
 Stanze: Camera matrimoniale; Cucina-soggiorno con divano letto matrimoniale; Bagno con doccia.
 

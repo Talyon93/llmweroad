@@ -63,7 +63,7 @@ La culla del Rinascimento.
 
 La culla del Rinascimento, dove lavorarono Brunelleschi, Donatello e Michelangelo; il centro storico è Patrimonio UNESCO dal 1982. Musei, chiese e palazzi si visitano facilmente a piedi.
 
-Circondata da splendide colline e costruita intorno all’Arno, Firenze offre un mondo di arte, cultura ed eccellente enogastronomia. Spesso descritta come un museo a cielo aperto, vanta Piazza della Signoria, il Duomo, il Ponte Vecchio, Palazzo Pitti e la Galleria degli Uffizi. È anche la strada per l’aeroporto di Peretola.
+Circondata da splendide colline e costruita intorno all’Arno, Firenze offre un mondo di arte, cultura ed eccellente enogastronomia. Spesso descritta come un museo a cielo aperto, vanta Piazza della Signoria, il Duomo, il Ponte Vecchio, Palazzo Pitti e la Galleria degli Uffizi. Qui c’è anche l’aeroporto di Peretola.
 
 Da non perdere:
 - Duomo di Santa Maria del Fiore: La cattedrale con la cupola del Brunelleschi, il Campanile di Giotto e il Battistero.

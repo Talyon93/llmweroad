@@ -14,6 +14,10 @@ sentire coccolati." Ogni tanto organizzano anche una festa, nello spirito sempli
 della convivialità. Per informazioni e prenotazioni si possono contattare Marino o Tommaso
 (vedi Contatti).
 
+## Lingue parlate
+
+Parliamo italiano e inglese: Marino e Daniela rispondono di persona, in italiano o in inglese.
+
 ## La casa
 
 Un podere dell'Ottocento restaurato con amore, con sette appartamenti e una casetta in pietra, e
@@ -39,7 +43,7 @@ Giochi all'aperto: campo da calcio, ping-pong e un parco giochi, per i bambini m
 
 Piscina panoramica di sei metri per dodici, alimentata da una sorgente che sgorga dalla roccia,
 con un angolo per i bambini e la vista sulle colline. Sdraio e ombrelloni sono inclusi.
-È aperta da inizio aprile a fine ottobre, senza orari fissi: gli ospiti la usano quando vogliono.
+È aperta da aprile a ottobre (da inizio aprile a fine ottobre), senza orari fissi: gli ospiti la usano quando vogliono.
 Non è riscaldata, quindi ad aprile e a ottobre l'acqua può essere fredda, soprattutto la mattina:
 dipende dal tempo. I teli piscina non sono inclusi: si noleggiano a 10 € a telo, per tutto il soggiorno.
 
@@ -187,7 +191,9 @@ date e numero di ospiti: la famiglia risponde con la sua migliore offerta, oppur
 telefonare.
 
 I prezzi non sono fissi: cambiano in base al periodo e alla disponibilità, quindi il prezzo
-giusto è quello del sistema di prenotazione o del preventivo.
+giusto è quello del sistema di prenotazione o del preventivo. Non esistono prezzi "a partire
+da". Prenotando direttamente con noi (sul sito o contattandoci) si paga meno che sui portali
+come Booking.com.
 
 A luglio e agosto gli appartamenti si affittano solo da sabato a sabato, a settimane intere.
 
@@ -196,7 +202,7 @@ A luglio e agosto gli appartamenti si affittano solo da sabato a sabato, a setti
 - Marino: +39 347 330 7459
 - Tommaso: +39 348 928 3412
 - Email: casavaianomail@gmail.com
-- Indirizzo: Via Volterrana Sud 80, Podere Vaiano, 50050 Gambassi Terme (FI)
+- Indirizzo: Loc. Montignoso, Podere Vaiano, 50050 Gambassi Terme (FI)
 - Google Maps: https://www.google.com/maps/search/?api=1&query=Agriturismo+Casavaiano+Gambassi+Terme
 - Instagram: instagram.com/agriturismocasavaiano
 - Facebook: facebook.com/agriturismo.casavaiano
