@@ -3,7 +3,7 @@ import threading
 from collections.abc import Callable
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from casavaiano.agent.graph import Assistant
 from casavaiano.agent.memory import ConversationStore
 from casavaiano.agent.state import CallRecord, EscalationDraft, ToolRecord
+from casavaiano.api.limits import DailyBudget, RateLimiter, client_ip
 from casavaiano.config import Settings, get_settings
 from casavaiano.llm import LLMError
 from casavaiano.notify import Contact, Notifier, contact_email, escalation_email, make_notifier
@@ -73,6 +74,11 @@ def create_app(
     settings = settings or get_settings()
     notifier = notifier or make_notifier(settings)
     conversations = conversations or ConversationStore()
+    chat_limiter = RateLimiter(
+        [(settings.rate_limit_per_10min, 600), (settings.rate_limit_per_day, 86_400)]
+    )
+    contact_limiter = RateLimiter([(settings.contact_limit_per_hour, 3600)])
+    budget = DailyBudget(settings.daily_budget_usd)
     app = FastAPI(title="CasaVaiano guest assistant", version="0.2.0")
     origins = [o.strip() for o in settings.allowed_origins.split(",") if o.strip()]
     if origins:
@@ -105,7 +111,12 @@ def create_app(
         }
 
     @app.post("/chat", response_model=None)
-    def chat(request: ChatRequest) -> dict:
+    def chat(request: ChatRequest, http: Request) -> dict:
+        if budget.exceeded():
+            raise HTTPException(503, "The assistant is taking a break, please contact us directly")
+        wait = chat_limiter.hit(client_ip(http, settings.trust_forwarded_for))
+        if wait:
+            raise HTTPException(429, "Too many messages, please wait", {"Retry-After": str(wait)})
         try:
             agent = assistant()
         except LLMError as exc:
@@ -118,6 +129,7 @@ def create_app(
             log.exception("assistant run failed")
             raise HTTPException(500, "Something went wrong, please try again") from exc
 
+        budget.add(result.cost_usd)
         conversations.add(request.session_id, message, result.reply)
         trace_url = get_tracer().trace_url(result.trace_id)
         escalated = result.status == "escalated"
@@ -155,7 +167,10 @@ def create_app(
         ).model_dump(mode="json")
 
     @app.post("/contact")
-    def contact(request: ContactRequest) -> dict:
+    def contact(request: ContactRequest, http: Request) -> dict:
+        wait = contact_limiter.hit(client_ip(http, settings.trust_forwarded_for))
+        if wait:
+            raise HTTPException(429, "Too many requests, please wait", {"Retry-After": str(wait)})
         if request.contact.empty:
             raise HTTPException(422, "An email or a phone number is required")
         subject, body = contact_email(request.session_id, request.contact, request.note)

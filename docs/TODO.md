@@ -57,7 +57,8 @@ Rigor:
 - [x] Chat history per session (server-side, 6 turns, 24 h; one instance: a shared
       store is needed if Cloud Run scales to several instances).
 - [x] CORS restricted to `ALLOWED_ORIGINS`.
-- [ ] Per-IP rate limit and spend cap.
+- [x] Per-IP rate limits (chat 20/10 min and 150/day, contact 5/hour) and a daily spend cap
+      (5 USD, then 503 until midnight; /contact stays open).
 - [ ] Privacy notice on the site: messages go to Anthropic and Langfuse.
 
 ## Later

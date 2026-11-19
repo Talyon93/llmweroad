@@ -44,8 +44,13 @@ Response in production (`EXPOSE_INTERNALS=false`):
   the request was passed to the owner, who will reply personally.
 - `needs_contact`: `true` when the request was escalated and the guest has not given an email
   or phone. Show a small form (name, email, phone, optional note) and send it to `/contact`.
-- Errors: `422` invalid input, `503` assistant not configured, `500` unexpected error (show
-  "Something went wrong, please try again").
+- Errors: `422` invalid input, `500` unexpected error (show "Something went wrong, please try
+  again").
+- `429` too many messages from this IP (20 per 10 minutes, 150 per day): the `Retry-After`
+  header says how many seconds to wait. Show "Too many messages, please try again in a few
+  minutes" in the page language.
+- `503` the assistant is paused (daily spend cap reached, or not configured): show the direct
+  contacts (phone, email) and keep the contact form working, since `/contact` stays open.
 - Replies can take 3 to 15 seconds: show a typing indicator.
 - Replies are plain text with line breaks; they may contain `**bold**`.
 
@@ -59,7 +64,7 @@ Response in production (`EXPOSE_INTERNALS=false`):
 }
 ```
 
-Needs an email or a phone (`422` otherwise). Returns `{"received": true, "owner_notified": true}`.
+Needs an email or a phone (`422` otherwise). At most 5 per hour per IP (`429`). Returns `{"received": true, "owner_notified": true}`.
 The owner receives an email linked to the same conversation, with Reply-To set to the guest.
 
 ## GET /health

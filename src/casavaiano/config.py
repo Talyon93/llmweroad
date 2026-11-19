@@ -60,6 +60,14 @@ class Settings(BaseSettings):
     email_from: str = ""
     escalation_email_to: str = ""
 
+    # Abuse protection. On Cloud Run set TRUST_FORWARDED_FOR=true (requests arrive from Google's
+    # front end; the client IP is in X-Forwarded-For). DAILY_BUDGET_USD=0 disables the cap.
+    rate_limit_per_10min: int = 20
+    rate_limit_per_day: int = 150
+    contact_limit_per_hour: int = 5
+    daily_budget_usd: float = 5.0
+    trust_forwarded_for: bool = False
+
     @property
     def email_enabled(self) -> bool:
         return bool(
