@@ -36,7 +36,7 @@ Ingresso indipendente, 55 m². Il più spazioso, con due bagni e l'ingresso tutt
 
 Una particolare struttura in muratura lo rende molto caratteristico. Ingresso indipendente, due bagni e uno spazio esterno privato.
 
-Stanze: Camera matrimoniale; Cucina; Soggiorno; Bagno con doccia; Secondo bagno.
+Stanze: Camera matrimoniale; Cucina; Soggiorno con divano letto matrimoniale; Bagno con doccia; Secondo bagno.
 
 Caratteristiche: Due bagni, Veranda privata.
 
