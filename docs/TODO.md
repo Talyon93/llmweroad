@@ -29,7 +29,7 @@ Rigor:
 - [ ] Repeat one configuration twice to measure run-to-run noise.
 - [ ] Iterate on the dev split only; run the final configurations once on the test split.
 - [ ] Log every result, including what did not work, in `docs/experiments.md`.
-- [ ] Update the README results tables.
+- [ ] Update the README results tables (README rewritten around Rocco live on 2026-11-20).
 
 ## M7 follow-up
 
@@ -43,8 +43,7 @@ Rigor:
 - [x] Availability from Slope's iCal (8 apartments, cached 15 min, July-August Saturday to
       Saturday). `AVAILABILITY_SOURCE=slope`; prices are never given (Smartpricing changes them
       daily): the guest gets the Slope booking link or a quote request to the owner.
-- [ ] Capacity of each apartment (`capacity` in data/real/lodgings.yaml): until then Rocco
-      cannot say which apartment fits the party and hands those requests to the owner.
+- [x] Capacity of each apartment (`capacity` in data/real/lodgings.yaml): 4 + 1 extra bed, confirmed
 - [ ] Minimum-stay restrictions set in Smartpricing are not in the iCal: Rocco may call free a
       stay the booking engine refuses. Add the rules or mention them in the reply.
 - [x] Real knowledge base in data/real/kb (`KB_DIR=data/real/kb`): home page texts by hand,
