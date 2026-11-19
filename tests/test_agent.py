@@ -10,7 +10,7 @@ from casavaiano.agent.grounding import (
     ungrounded_amounts,
 )
 from casavaiano.agent.guards import escalation_reason
-from casavaiano.agent.prompts import Persona, acknowledgement, answer_system
+from casavaiano.agent.prompts import Persona, acknowledgement, answer_system, localize_signature
 from casavaiano.agent.state import Classification, EscalationDraft
 from casavaiano.config import Settings
 from casavaiano.llm import LLMError, ToolCall
@@ -303,3 +303,11 @@ def test_answer_prompt_uses_persona():
     assert "You are Rocco" in prompt
     assert "Giulia" not in prompt
     assert "virtual assistant" in prompt
+
+
+def test_english_signature_is_localized():
+    p = Persona("Rocco", "Tommaso", live=True)
+    reply = "Ciao,\n\nSì.\n\nSaluti,\nRocco, CasaVaiano's virtual assistant"
+    assert localize_signature(reply, "it", p).endswith("Rocco, l'assistente virtuale di CasaVaiano")
+    assert localize_signature(reply, "en", p) == reply
+    assert localize_signature(reply, "fr", p) == reply

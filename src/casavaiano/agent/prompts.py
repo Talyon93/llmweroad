@@ -172,6 +172,23 @@ def acknowledgement(language: str, p: Persona) -> str:
     return _ACKNOWLEDGEMENTS[lang].format(to_owner=to_owner, assistant=p.assistant)
 
 
+_SIGNATURES = {
+    "it": "{assistant}, l'assistente virtuale di CasaVaiano",
+    "en": "{assistant}, CasaVaiano's virtual assistant",
+    "de": "{assistant}, der virtuelle Assistent von CasaVaiano",
+}
+
+
+def localize_signature(reply: str, language: str, p: Persona) -> str:
+    """The model sometimes signs in English under an Italian or German reply: fix it in code."""
+    if language == "en" or language not in _SIGNATURES:
+        return reply
+    english = _SIGNATURES["en"].format(assistant=p.assistant)
+    if english not in reply:
+        return reply
+    return reply.replace(english, _SIGNATURES[language].format(assistant=p.assistant))
+
+
 def format_history(history: list[tuple[str, str]]) -> str:
     """Earlier turns of the conversation, as data (never instructions)."""
     if not history:
