@@ -332,3 +332,29 @@ def test_demo_guards_ignore_live_rules():
     wedding = classification(intent="events", private_event=True)
     assert escalation_reason(wedding) == "intent:events"
     assert escalation_reason(classification(units_requested=5)) is None
+
+
+def test_plain_text_drops_markdown():
+    from casavaiano.agent.prompts import plain_text
+
+    assert plain_text("**Girasole** ha l'aria condizionata.\n## Note\nCiao") == (
+        "Girasole ha l'aria condizionata.\nNote\nCiao"
+    )
+
+
+def test_answer_routes():
+    from casavaiano.agent.routing import answer_route
+
+    demo = Settings(_env_file=None)
+    live = Settings(_env_file=None, availability_source="slope", kb_dir="data/real/kb")
+    vague_faq = classification(intent="services", confidence=0.8)
+    assert answer_route(demo, vague_faq).model == demo.cheap_model
+    booking = classification(intent="booking", group_size=4, confidence=0.9)
+    assert answer_route(demo, booking).model == demo.strong_model
+    assert answer_route(live, booking).model == live.cheap_model
+    assert answer_route(live, classification(intent="booking", units_requested=2)).model == (
+        live.strong_model
+    )
+    assert answer_route(live, classification(intent="booking", group_size=6)).model == (
+        live.strong_model
+    )

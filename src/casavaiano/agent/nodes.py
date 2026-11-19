@@ -170,7 +170,8 @@ class Nodes:
         if not state.get("reply"):
             return {"escalation_reason": "empty_reply"}
         language = state["classification"].language
-        return {"reply": prompts.localize_signature(state["reply"], language, self.persona)}
+        reply = prompts.plain_text(state["reply"])
+        return {"reply": prompts.localize_signature(reply, language, self.persona)}
 
     def escalate(self, state: AgentState) -> dict[str, Any]:
         c = state.get("classification")

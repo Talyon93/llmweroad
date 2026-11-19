@@ -318,3 +318,18 @@ hands over).
 Also: the server now loads the embedding model, index and chunks at startup. In production the
 first message after a restart spent ~9 s in `retrieve` (Langfuse traces: 9.0 s, 9.6 s, 7.8 s,
 then 0.03 s).
+
+## 2026-11-20 · Cheaper routing and plain-text replies (not yet measured)
+
+From the production traces in Langfuse (read through the API, no model calls): Haiku classifies
+short, plain questions with confidence 0.8 ("Che giochi ci sono per i bambini?", "Siamo in 5, si
+può?"), below the 0.85 needed for the cheap answer route, so they went to Opus at ~$0.015 instead
+of ~$0.0003.
+- Cheap-answer threshold 0.85 -> 0.7 (the guard still escalates under 0.6).
+- Live mode only: a booking for one apartment and up to 5 guests goes to Haiku. On the real site a
+  booking is an availability check plus the booking link, with no prices to compute. Demo
+  bookings (quotes) stay on Opus.
+- Prompt: plain text only, formal register when the guest is formal (always "Sie" in German),
+  correct grammar. Markdown bold and headings are also stripped in code.
+Unit-tested, not yet measured on the real cases: the owner asked not to spend more credits
+without asking first.

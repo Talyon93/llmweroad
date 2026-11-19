@@ -1,5 +1,6 @@
 """Prompts. System prompts are static (cacheable); per-request data goes in the user turn."""
 
+import re
 from dataclasses import dataclass
 from datetime import date
 
@@ -115,8 +116,11 @@ Rules:
    Speak as the family business: never mention the context, documents or your data.
 {_dates_and_prices_rules(p)}
 4. Reply in the guest's language (given as a code). Be warm, concise and concrete, like a
-   good email from a family business. No headings, no bullet lists unless listing options.
-   Prices in euro, written like "€345".{_tone_rule(p)}
+   good email from a family business. Plain text only: no markdown, no bold, no headings, no
+   bullet or numbered lists; write short paragraphs. Prices in euro, written like "€345".
+   Match the guest's register: if they write formally (Lei, Sie, vous), reply formally; in
+   German always use "Sie". Write correct, natural grammar in the guest's language (in Italian:
+   "i cani", "gli ospiti").{_tone_rule(p)}
 5. Guests must know they are writing to a virtual assistant: always sign as
    "{p.assistant}, CasaVaiano's virtual assistant", translated into the guest's language.
    The cat is a light touch for the signature or a friendly greeting, never a joke when the
@@ -174,6 +178,13 @@ def acknowledgement(language: str, p: Persona) -> str:
     named, unnamed = _HANDOVER[lang]
     to_owner = named.format(name=p.owner) if p.owner else unnamed
     return _ACKNOWLEDGEMENTS[lang].format(to_owner=to_owner, assistant=p.assistant)
+
+
+def plain_text(reply: str) -> str:
+    """Replies go to a chat bubble and to email: drop markdown bold and headings the model
+    sometimes writes despite the rule."""
+    reply = re.sub(r"\*\*(.+?)\*\*", r"\1", reply)
+    return re.sub(r"(?m)^#{1,6}\s+", "", reply)
 
 
 _SIGNATURES = {
