@@ -202,6 +202,21 @@ def run(label: str, overrides: dict) -> None:
     print(f"judge ${cost:.4f}  report: {OUT_DIR / f'report_{label}.md'}")
 
 
+def rescore(label: str) -> None:
+    """Re-apply the current labels to a finished run (no API calls)."""
+    path = OUT_DIR / f"results_{label}.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    expected = _labels()
+    for r in data["cases"]:
+        r["expected"] = expected.get(r["id"], "either")
+    data["summary"] = {**data["summary"], **behaviour_metrics(data["cases"])}
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT_DIR / f"report_{label}.md").write_text(
+        _report(data["cases"], data["summary"]), encoding="utf-8"
+    )
+    print(json.dumps(data["summary"], indent=1))
+
+
 def _labels() -> dict[str, str]:
     if not LABELS.exists():
         return {}
@@ -293,6 +308,7 @@ def main() -> None:
     b.add_argument("--n", type=int, default=70)
     b.add_argument("--max-per-topic", type=int, default=7)
     b.add_argument("--since", default="2025-01")
+    sub.add_parser("rescore").add_argument("--label", required=True)
     r = sub.add_parser("run")
     r.add_argument("--label", required=True)
     r.add_argument("--no-routing", action="store_true")
@@ -301,6 +317,9 @@ def main() -> None:
     args = parser.parse_args()
     if args.cmd == "build":
         build(args.extract, args.n, args.max_per_topic, args.since)
+        return
+    if args.cmd == "rescore":
+        rescore(args.label)
         return
     overrides = {}
     if args.no_routing:

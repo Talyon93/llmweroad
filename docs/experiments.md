@@ -232,3 +232,39 @@ without escalating, so nobody would have read it. Rule 1 told it to "say you wil
 owner", a promise only escalate_to_owner can keep. Now: say the detail is missing and the owner
 can answer it; never claim a hand-off without calling the tool; never mention "the context".
 The train answer also stopped saying "the context I have doesn't name a station".
+
+## 2026-11-20 · M6 baseline on 70 real guest questions
+
+The real-question eval becomes M6's primary measure: 70 cases from the owner's sent replies
+(Jan 2025 - Nov 2026, 17 topics), each labelled with the expected behaviour: answer 35,
+escalate 29, either 6. Labels drafted by me from the owner's real replies; the owner set the
+three rules for the doubtful cases: Rocco says "no" to weddings himself, groups needing three or
+more apartments go to the owner, any discount request sends the whole message to the owner.
+Two labels fixed after the run (rescored, no new API calls): two families in two apartments is
+not a large group; adding a child to an existing booking may be answered or handed over.
+
+Baseline (current production config: routing, headings chunking, both queries):
+
+| Metric | Value |
+|---|---|
+| Right behaviour (answer vs hand over) | **87.1%** |
+| Escalation precision / recall | 81.2% / 89.7% |
+| Answered cases consistent / partial / contradicting the owner | 12 / 14 / 7 (of 33) |
+| Cost per message (Rocco only) | $0.021 |
+| Latency p50 / p95 | 8.1 s / 13.2 s |
+
+Run cost $2.18 (Rocco $1.46, judge $0.72).
+
+- Wrong hand-overs: 3 weddings (the guard escalates all events; the owner's rule says answer),
+  a cooking-activities question, and two family questions that are answered when asked again.
+- Missed hand-overs: five families for a week (no group size given, so the group guard never
+  fired), and an existing booking asking "did you get my email, please prepare five towels".
+- **Run-to-run noise is large:** re-asking the four wrongly escalated cases flipped two of them.
+  Every M6 comparison needs at least two runs per configuration.
+- Of the 7 contradictions, 4 are the owner's older emails disagreeing with the approved KB
+  (check-in 14:00, "all apartments on the ground floor" about three specific ones) or the judge
+  nitpicking. Real ones: (1) towels not found for a mixed message, because the fact lived only
+  under "Supplementi" and apartment cards mentioning the pool outranked it; now also stated in
+  "La piscina", retrieved 2nd. (2) Rocco inferred towels cost "€10 for the whole stay"; the KB
+  says only "€10 per towel". (3) Three emails say June is Saturday-to-Saturday too, the KB says
+  July and August only: question for the owner.

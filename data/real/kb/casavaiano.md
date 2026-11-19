@@ -41,7 +41,7 @@ Piscina panoramica di sei metri per dodici, alimentata da una sorgente che sgorg
 con un angolo per i bambini e la vista sulle colline. Sdraio e ombrelloni sono inclusi.
 È aperta da inizio aprile a fine ottobre, senza orari fissi: gli ospiti la usano quando vogliono.
 Non è riscaldata, quindi ad aprile e a ottobre l'acqua può essere fredda, soprattutto la mattina:
-dipende dal tempo.
+dipende dal tempo. I teli piscina non sono inclusi: si noleggiano a 10 € a telo.
 
 ## Cosa è sempre incluso
 
