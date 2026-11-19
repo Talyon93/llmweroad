@@ -15,8 +15,10 @@ COPY src ./src
 COPY data ./data
 COPY scripts/build_index.py ./scripts/
 RUN uv sync --frozen --no-dev
-# Bake the embedding model and the vector index into the image: no download at startup.
-RUN .venv/bin/python scripts/build_index.py
+# Bake the embedding model and the vector indexes (demo KB and real KB) into the image: no
+# download and no indexing at startup.
+RUN .venv/bin/python scripts/build_index.py \
+    && KB_DIR=data/real/kb .venv/bin/python scripts/build_index.py
 
 FROM base AS runtime
 RUN useradd --create-home --uid 10001 app

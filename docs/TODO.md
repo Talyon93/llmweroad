@@ -58,7 +58,7 @@ Rigor:
       store is needed if Cloud Run scales to several instances).
 - [x] CORS restricted to `ALLOWED_ORIGINS`.
 - [x] Per-IP rate limits (chat 20/10 min and 150/day, contact 5/hour) and a daily spend cap
-      (5 USD, then 503 until midnight; /contact stays open).
+      (1 USD, then 503 until midnight; /contact stays open).
 - [ ] Privacy notice on the site: messages go to Anthropic and Langfuse.
 
 ## Later

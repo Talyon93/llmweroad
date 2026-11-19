@@ -65,7 +65,7 @@ class Settings(BaseSettings):
     rate_limit_per_10min: int = 20
     rate_limit_per_day: int = 150
     contact_limit_per_hour: int = 5
-    daily_budget_usd: float = 5.0
+    daily_budget_usd: float = 1.0
     trust_forwarded_for: bool = False
 
     @property
