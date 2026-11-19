@@ -8,8 +8,11 @@
 
 Cases and reports go to evals/real/ (git-ignored): they derive from real emails.
 
-    uv run python scripts/real_eval.py build --extract <sent_extract.jsonl> --n 30
-    uv run python scripts/real_eval.py run
+    uv run python scripts/real_eval.py build --extract <sent_extract.jsonl> --n 70
+    uv run python scripts/real_eval.py run --label baseline [--no-routing] [--chunking fixed]
+
+labels.jsonl (written with the owner) gives each case the expected behaviour: answer, escalate or
+either. The run reports behaviour accuracy and escalation precision/recall against it.
 """
 
 import argparse
@@ -31,9 +34,9 @@ from casavaiano.observability import Tracer
 
 OUT_DIR = EVALS_DIR / "real"
 CASES = OUT_DIR / "cases.jsonl"
+LABELS = OUT_DIR / "labels.jsonl"
 TODAY = date(2026, 11, 19)
 SKIP_ONLY = {"availability", "prices_quote", "other"}
-MAX_PER_TOPIC = 3
 
 
 class Rewrite(BaseModel):
@@ -70,7 +73,7 @@ Rocco never gives prices on purpose (they change daily): pointing to the booking
 instead of a price is not a contradiction."""
 
 
-def build(extract_path: str, n: int, seed: int = 7) -> None:
+def build(extract_path: str, n: int, max_per_topic: int, since: str, seed: int = 7) -> None:
     rows = [
         json.loads(line) for line in Path(extract_path).read_text(encoding="utf-8").splitlines()
     ]
@@ -81,14 +84,14 @@ def build(extract_path: str, n: int, seed: int = 7) -> None:
         and r["guest_questions"]
         and r["owner_facts"]
         and set(r["topics"]) - SKIP_ONLY
-        and r["month"] >= "2025-06"
+        and r["month"] >= since
     ]
     random.Random(seed).shuffle(rows)
     rows.sort(key=lambda r: r["month"], reverse=True)
     picked, per_topic = [], Counter()
     for r in rows:
         topics = [t for t in r["topics"] if t not in SKIP_ONLY]
-        if all(per_topic[t] >= MAX_PER_TOPIC for t in topics):
+        if all(per_topic[t] >= max_per_topic for t in topics):
             continue
         picked.append(r)
         per_topic.update(topics)
@@ -136,14 +139,16 @@ def build(extract_path: str, n: int, seed: int = 7) -> None:
     print(f"{len(cases)} cases, topics {dict(per_topic)}, ${sum(c['cost'] for c in cases):.4f}")
 
 
-def run() -> None:
+def run(label: str, overrides: dict) -> None:
     cases = [json.loads(line) for line in CASES.read_text(encoding="utf-8").splitlines()]
+    expected = _labels()
     base = get_settings()
     settings = base.model_copy(
         update={
             "availability_source": "slope",
             "kb_dir": "data/real/kb",
             "retrieval_k": 6,
+            **overrides,
         }
     )
     quiet = _quiet()
@@ -175,6 +180,8 @@ def run() -> None:
         )
         return {
             **case,
+            "expected": expected.get(case["id"], "either"),
+            "latency_ms": response.latency_ms,
             "status": response.status,
             "rocco": response.reply,
             "rocco_cost": response.cost_usd,
@@ -184,17 +191,56 @@ def run() -> None:
 
     with ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(evaluate, cases))
-    (OUT_DIR / "results.json").write_text(
-        json.dumps(results, ensure_ascii=False, indent=1), encoding="utf-8"
+    summary = {"label": label, "overrides": overrides, **behaviour_metrics(results)}
+    (OUT_DIR / f"results_{label}.json").write_text(
+        json.dumps({"summary": summary, "cases": results}, ensure_ascii=False, indent=1),
+        encoding="utf-8",
     )
-    (OUT_DIR / "report.md").write_text(_report(results), encoding="utf-8")
-    counts = Counter(r["agreement"] for r in results)
-    cost = sum(r["rocco_cost"] + r["judge_cost"] for r in results)
-    print(f"{len(results)} cases: {dict(counts)}  cost ${cost:.4f}")
-    print(f"report: {OUT_DIR / 'report.md'}")
+    (OUT_DIR / f"report_{label}.md").write_text(_report(results, summary), encoding="utf-8")
+    cost = sum(r["judge_cost"] for r in results)
+    print(json.dumps(summary, indent=1))
+    print(f"judge ${cost:.4f}  report: {OUT_DIR / f'report_{label}.md'}")
 
 
-def _report(results: list[dict]) -> str:
+def _labels() -> dict[str, str]:
+    if not LABELS.exists():
+        return {}
+    rows = [json.loads(line) for line in LABELS.read_text(encoding="utf-8").splitlines()]
+    return {r["id"]: r["expected"] for r in rows}
+
+
+def behaviour_metrics(results: list[dict]) -> dict:
+    """Right behaviour against the owner's labels, escalation precision/recall, agreement with
+    the owner's facts on answered cases, cost and latency of Rocco alone."""
+    escalated = [r["status"] == "escalated" for r in results]
+    right = [
+        r["expected"] == "either" or (r["expected"] == "escalate") == e
+        for r, e in zip(results, escalated, strict=True)
+    ]
+    labelled = [(r["expected"], e) for r, e in zip(results, escalated, strict=True)]
+    tp = sum(1 for x, e in labelled if x == "escalate" and e)
+    fp = sum(1 for x, e in labelled if x == "answer" and e)
+    fn = sum(1 for x, e in labelled if x == "escalate" and not e)
+    answered = [r for r in results if r["status"] != "escalated"]
+    good = sum(1 for r in answered if r["agreement"] == "consistent")
+    wrong = sum(1 for r in answered if r["agreement"] == "contradicts")
+    latencies = sorted(r["latency_ms"] for r in results)
+    return {
+        "cases": len(results),
+        "right_behaviour": round(sum(right) / len(results), 3),
+        "escalation_precision": round(tp / (tp + fp), 3) if tp + fp else None,
+        "escalation_recall": round(tp / (tp + fn), 3) if tp + fn else None,
+        "answered": len(answered),
+        "answered_consistent": good,
+        "answered_contradicts": wrong,
+        "agreement": dict(Counter(r["agreement"] for r in results)),
+        "cost_per_message": round(sum(r["rocco_cost"] for r in results) / len(results), 5),
+        "latency_p50_s": round(latencies[len(latencies) // 2] / 1000, 1),
+        "latency_p95_s": round(latencies[int(len(latencies) * 0.95) - 1] / 1000, 1),
+    }
+
+
+def _report(results: list[dict], summary: dict) -> str:
     counts = Counter(r["agreement"] for r in results)
     by_topic = defaultdict(Counter)
     for r in results:
@@ -205,6 +251,10 @@ def _report(results: list[dict]) -> str:
         "",
         f"Cases: {len(results)} · {dict(counts)}",
         "",
+        "```",
+        json.dumps(summary, indent=1),
+        "```",
+        "",
         "## By topic",
         "",
     ]
@@ -213,7 +263,8 @@ def _report(results: list[dict]) -> str:
     order = {"contradicts": 0, "partial": 1, "escalated": 2, "consistent": 3}
     for r in sorted(results, key=lambda r: order[r["agreement"]]):
         lines += [
-            f"### {r['id']} · {r['agreement']} · {', '.join(r['topics'])}",
+            f"### {r['id']} · {r['agreement']} · expected {r['expected']}, got {r['status']}"
+            f" · {', '.join(r['topics'])}",
             "",
             f"> {r['message']}",
             "",
@@ -239,10 +290,26 @@ def main() -> None:
     sub = parser.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("build")
     b.add_argument("--extract", required=True)
-    b.add_argument("--n", type=int, default=30)
-    sub.add_parser("run")
+    b.add_argument("--n", type=int, default=70)
+    b.add_argument("--max-per-topic", type=int, default=7)
+    b.add_argument("--since", default="2025-01")
+    r = sub.add_parser("run")
+    r.add_argument("--label", required=True)
+    r.add_argument("--no-routing", action="store_true")
+    r.add_argument("--chunking", choices=["headings", "fixed"])
+    r.add_argument("--retrieval-query", choices=["original", "rewritten", "both"])
     args = parser.parse_args()
-    build(args.extract, args.n) if args.cmd == "build" else run()
+    if args.cmd == "build":
+        build(args.extract, args.n, args.max_per_topic, args.since)
+        return
+    overrides = {}
+    if args.no_routing:
+        overrides["routing_enabled"] = False
+    if args.chunking:
+        overrides["chunking_strategy"] = args.chunking
+    if args.retrieval_query:
+        overrides["retrieval_query"] = args.retrieval_query
+    run(args.label, overrides)
 
 
 if __name__ == "__main__":

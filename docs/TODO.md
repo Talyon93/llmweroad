@@ -6,6 +6,17 @@ Baseline to beat: `evals/results/20261117-230359_routing-baseline-v2judge.json`
 (dev split, routing on, headings chunking, judge v2): 88.7% answer correctness, $0.0085/query.
 One dev run costs about $1.50 (agent ~$0.53 + judge ~$0.95). Budget for M6: about $12.
 
+**Decided 2026-11-20: the real-question eval is the primary measure.** 70 real cases
+(`scripts/real_eval.py`, git-ignored), each labelled with the expected behaviour (answer /
+escalate / either; the owner set the rules for weddings, groups and discount requests). Metrics:
+right behaviour, escalation precision/recall, agreement with the owner's facts on answered cases,
+cost, latency. About $2 per run. The synthetic set stays as the safety check (prompt injection,
+complaints, refunds, safety), one run per final configuration.
+
+Owner rules that change today's behaviour (expect failures in the baseline):
+- [ ] Weddings and private events: Rocco answers "no" himself (today the guard escalates events).
+- [ ] Discount request in any message: hand the whole message to the owner (already the case).
+
 **First:** re-run the baseline. The answer prompt changed after it was measured (Rocco persona,
 virtual-assistant signature, configurable owner name), so 88.7% is no longer the current agent.
 
