@@ -236,8 +236,8 @@ The train answer also stopped saying "the context I have doesn't name a station"
 ## 2026-11-20 · M6 baseline on 70 real guest questions
 
 The real-question eval becomes M6's primary measure: 70 cases from the owner's sent replies
-(Jan 2025 - Nov 2026, 17 topics), each labelled with the expected behaviour: answer 35,
-escalate 29, either 6. Labels drafted by me from the owner's real replies; the owner set the
+(Jan 2025 - Nov 2026, 17 topics), each labelled with the expected behaviour: answer 34,
+escalate 29, either 7. Labels drafted by me from the owner's real replies; the owner set the
 three rules for the doubtful cases: Rocco says "no" to weddings himself, groups needing three or
 more apartments go to the owner, any discount request sends the whole message to the owner.
 Two labels fixed after the run (rescored, no new API calls): two families in two apartments is
