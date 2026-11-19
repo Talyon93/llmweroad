@@ -19,7 +19,7 @@ finiscono a Tommaso via email. Ogni risposta qui sotto diventa una sezione della
 
 ## Utili
 
-- [x] **Teli piscina**: 10 € a telo (deciso da Tommaso 2026-11-20; il sito dice ancora 5 € a
+- [x] **Teli piscina**: 10 € a telo per tutto il soggiorno (deciso da Tommaso 2026-11-20; il sito dice ancora 5 € a
       persona a settimana, da correggere).
 - [x] Wi-Fi: Starlink, a volte instabile, meglio fuori che dentro.
 - [x] Barbecue: tre, liberi, senza prenotazione.

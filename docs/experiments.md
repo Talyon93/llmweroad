@@ -266,6 +266,6 @@ Run cost $2.18 (Rocco $1.46, judge $0.72).
   nitpicking. Real ones: (1) towels not found for a mixed message, because the fact lived only
   under "Supplementi" and apartment cards mentioning the pool outranked it; now also stated in
   "La piscina", retrieved 2nd. (2) Rocco inferred towels cost "€10 for the whole stay"; the KB
-  says only "€10 per towel". (3) Three emails say June is Saturday-to-Saturday too, the KB says
+  said only "€10 per towel" (the owner confirmed: for the whole stay, now in the KB). (3) Three emails say June is Saturday-to-Saturday too, the KB says
   July and August only. The owner confirmed July and August only (2026-11-20): the KB is right,
   those three are old emails, not Rocco errors.
