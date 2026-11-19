@@ -146,7 +146,9 @@ arriva con la spesa fatta.
 
 Non ci sono ristorante né colazione: ogni appartamento ha una cucina attrezzata, così gli ospiti
 sono liberi di organizzarsi. Per gli ospiti ci sono tre barbecue. Ogni tanto, soprattutto in alta
-stagione e a nostra discrezione, organizziamo una serata pizza o pasta. Non organizziamo
+stagione e a nostra discrezione, organizziamo una serata pizza o pasta. Le serate le
+prepariamo noi: non organizziamo corsi né attività di cucina con gli ospiti. Qualche volta è
+capitato che insegnassimo a stendere la pizza, ma non è un'attività fissa. Non organizziamo
 degustazioni di vino, ma all'arrivo consigliamo volentieri le migliori della zona. Ci sono diversi ristoranti a 7-13 km, che conviene prenotare; all'arrivo diamo una
 mappa con i nostri consigli su ristoranti e cose da vedere.
 
