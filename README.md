@@ -59,6 +59,12 @@ twice, because repeating a run flips up to 2 outcomes.
 - Most "contradictions" are the owner's older emails disagreeing with the KB he approved later
   (check-in times, Saturday rules); the real ones led to KB fixes. No invented prices.
 
+**Then cheaper routing** (production since 2026-11-20): plain questions rated 0.7+ and
+one-apartment bookings (an availability check plus the booking link, no prices) go to Haiku. On
+the 41 answerable real cases: right behaviour 88-90% -> 100%, $0.0185 -> **$0.0072 per message
+(-61%)**, p50 latency 7.7 s -> **3.8 s**. It surfaced one real error (offering February, when the
+farm is closed), now caught by the availability tool.
+
 Run cost: about $2.10 (routing) to $2.80 per run, judge included. Details and every failure in
 [docs/experiments.md](docs/experiments.md).
 
