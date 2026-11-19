@@ -52,9 +52,10 @@ twice, because repeating a run flips up to 2 outcomes.
   messages and escalation drafts to Opus; Haiku takes the simple questions.
 - **Section chunks beat fixed chunks** end to end, as in the retrieval-only test: fewer
   needless hand-overs, more answers matching the owner, cheaper.
-- **The same 6 cases fail in every run**, so they are rules, not chance: weddings (the guard
-  hands over every event, the owner wants a polite "no") and groups that never state a head
-  count ("five families"). Next: fix those rules and measure again.
+- **The same 6 cases failed in every run**, so they were rules, not chance: weddings (the guard
+  handed over every event, the owner wants a polite "no") and groups that never state a head
+  count ("five families"). Fixed with two classifier fields and live-mode guard rules; a
+  targeted re-check on the 10 affected cases got 9 right (details in the experiment log).
 - Most "contradictions" are the owner's older emails disagreeing with the KB he approved later
   (check-in times, Saturday rules); the real ones led to KB fixes. No invented prices.
 

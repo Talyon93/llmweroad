@@ -14,8 +14,8 @@ cost, latency. About $2 per run. The synthetic set stays as the safety check (pr
 complaints, refunds, safety), one run per final configuration.
 
 Owner rules that change today's behaviour (expect failures in the baseline):
-- [ ] Weddings and private events: Rocco answers "no" himself (today the guard escalates events).
-- [ ] Discount request in any message: hand the whole message to the owner (already the case).
+- [x] Weddings and private events: Rocco answers "no" himself (live guard, 2026-11-20).
+- [x] Discount request in any message: hand the whole message to the owner (already the case).
 
 **First:** re-run the baseline. The answer prompt changed after it was measured (Rocco persona,
 virtual-assistant signature, configurable owner name), so 88.7% is no longer the current agent.
@@ -25,10 +25,10 @@ Required comparisons:
 - [x] Chunking headings vs fixed, end to end: headings wins, real eval 2026-11-20.
 
 Next, from the comparisons (the same 6 cases fail in every run):
-- [ ] Weddings and private events: answer "no" in live mode instead of escalating.
-- [ ] Groups without a head count ("five families", "three apartments"): count apartments or
+- [x] Weddings and private events: answer "no" in live mode instead of escalating.
+- [x] Groups without a head count ("five families", "three apartments"): count apartments or
       families, hand over from three apartments.
-- [ ] Cooking-evenings question escalated although the KB covers it.
+- [x] Cooking-evenings question: the KB now says the family cooks, no cooking classes.
 
 Extra experiments, from findings in `docs/experiments.md`:
 - [ ] Retrieval query: original vs rewritten vs both (`--retrieval-query`).
@@ -45,8 +45,8 @@ Extra experiments, from findings in `docs/experiments.md`:
 Rigor:
 - [x] Repeat each configuration twice: up to 2 of 70 outcomes flip.
 - [ ] Iterate on the dev split only; run the final configurations once on the test split.
-- [ ] Log every result, including what did not work, in `docs/experiments.md`.
-- [ ] Update the README results tables (README rewritten around Rocco live on 2026-11-20).
+- [x] Log every result, including what did not work, in `docs/experiments.md`.
+- [x] Update the README results tables (real-question comparisons, 2026-11-20).
 
 ## M7 follow-up
 
@@ -65,7 +65,7 @@ Rigor:
       stay the booking engine refuses. Add the rules or mention them in the reply.
 - [x] Real knowledge base in data/real/kb (`KB_DIR=data/real/kb`): home page texts by hand,
       apartments and nearby places generated from the website by scripts/import_site_kb.py.
-- [ ] Fill the gaps listed in data/real/DA_COMPLETARE.md (check-in, deposit, cancellation,
+- [x] Fill the gaps listed in data/real/DA_COMPLETARE.md (check-in, deposit, cancellation,
       pets, minimum stay, opening period, tourist tax...): today those questions are emailed.
 - [x] Public /chat response (`EXPOSE_INTERNALS=false`); escalations emailed to the owner over
       SMTP; guest contact via `contact` or `POST /contact` (see docs/widget-api.md).
@@ -75,10 +75,20 @@ Rigor:
 - [x] CORS restricted to `ALLOWED_ORIGINS`.
 - [x] Per-IP rate limits (chat 20/10 min and 150/day, contact 5/hour) and a daily spend cap
       (1 USD, then 503 until midnight; /contact stays open).
-- [ ] Privacy notice on the site: messages go to Anthropic and Langfuse.
+- [x] Privacy notice on the site: messages go to Anthropic and Langfuse (retention wording from the providers' plans).
+
+## Budget
+
+The owner asked to stop spending on API credits (2026-11-20, M6 cost ~$17.5). Any paid eval or
+LLM test needs his OK and a cost estimate first; prefer targeted case checks over full runs.
 
 ## Later
 
+- [ ] Thumbs up/down in the widget, sent to Langfuse as scores, once traffic grows.
+- [ ] A separate Anthropic key with a low limit for experiments, so they cannot stop Rocco.
+- [ ] Simple FAQs answered by Opus (e.g. "che giochi ci sono per i bambini?", $0.015): check the
+      answer route.
+
 - [x] M9: deployed on Cloud Run (europe-west8), see docs/deploy.md.
-- [ ] Replace the fictional knowledge base in `data/` with the real CasaVaiano information and
+- [x] Real knowledge base in `data/real/` (the fictional one stays for the demo eval) and
       re-run the evals.
