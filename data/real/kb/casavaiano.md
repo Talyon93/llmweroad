@@ -8,8 +8,8 @@ missing goes in data/real/DA_COMPLETARE.md, not here. -->
 ## Chi siamo
 
 CasaVaiano è un agriturismo a gestione familiare sulle colline di fronte a Volterra, tra
-Gambassi Terme e San Gimignano, in provincia di Firenze. Vi accolgono Marino e Daniela, che si
-occupano personalmente degli ospiti: "Ci occuperemo personalmente di voi, cercando di farvi
+Gambassi Terme e San Gimignano, in provincia di Firenze. Il proprietario è Marino: lui e Daniela
+accolgono gli ospiti e se ne occupano personalmente: "Ci occuperemo personalmente di voi, cercando di farvi
 sentire coccolati." Ogni tanto organizzano anche una festa, nello spirito semplice e familiare
 della convivialità. Per informazioni e prenotazioni si possono contattare Marino o Tommaso
 (vedi Contatti).
